@@ -50,7 +50,8 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
+:root,
+.dark {
   color-scheme: dark;
 
   /* Core dark palette (slate #0f172a base) */
