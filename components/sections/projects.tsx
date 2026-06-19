@@ -198,13 +198,13 @@ export function Projects() {
                     View on GitHub
                   </a>
                   <a
-                    href="https://github.com/JamesMangao"
+                    href="https://lifevault-182e.onrender.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/10 hover:border-white/20"
                   >
-                    <GithubIcon className="size-4" />
-                    GitHub Profile
+                    <ExternalLink className="size-4" />
+                    Live Website
                   </a>
                 </div>
               </div>
