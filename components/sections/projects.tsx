@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -9,29 +9,73 @@ import {
   ExternalLink,
   Smartphone,
   Star,
+  Sparkles,
+  X,
+  Upload,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
 
-const lifeVaultShots = [
-  { src: '/projects/lifevault-dashboard.png', alt: 'LifeVault insights dashboard' },
-  { src: '/projects/lifevault-ai.png', alt: 'LifeVault AI resume analyzer and chatbot' },
+const displayFeatures = [
+  'Resume Analyzer',
+  'LifeStory Generator',
+  'Shadow Self Analyzer',
+  'Holistic Career Advisor',
+  'AI Chatbot',
+  'Authentication System',
+  'Dashboard Analytics',
 ]
 
-const lifeVaultFeatures = [
-  'Resume Analyzer',
-  'Shadow Self Analyzer',
-  'Life Story Generator',
-  'Holistic Career Advisor',
-  'LifeVault AI Chatbot',
-  'Journal System',
-  'Tasks Management',
-  'Goals Tracking',
-  'Saved Items Vault',
-  'Insights Dashboard',
-  'Community Feed',
-  'User Profiles',
-  'Authentication System',
+type LifeVaultCard = {
+  id: string
+  number: string
+  title: string
+  image: string
+  description: string
+  url: string
+}
+
+const lifeVaultCards: LifeVaultCard[] = [
+  {
+    id: 'landing',
+    number: '01',
+    title: 'Landing',
+    image: '/projects/lifevault-landing.png',
+    description: 'A beautifully crafted entry portal highlighting LifeVault\'s journaling tools and psychological insight generator.',
+    url: 'https://github.com/JamesMangao/LifeVault',
+  },
+  {
+    id: 'dashboard',
+    number: '02',
+    title: 'Dashboard',
+    image: '/projects/lifevault-dashboard.png',
+    description: 'An interactive center console illustrating analytics, journal volume trends, and emotional timelines.',
+    url: 'https://github.com/JamesMangao/LifeVault',
+  },
+  {
+    id: 'resume',
+    number: '03',
+    title: 'Resume Analyzer',
+    image: '/projects/lifevault-ai.png',
+    description: 'Intelligent resume analysis engine offering automated improvements, score updates, and content suggestions.',
+    url: 'https://github.com/JamesMangao/LifeVault',
+  },
+  {
+    id: 'shadow',
+    number: '04',
+    title: 'Shadow Self',
+    image: '/projects/lifevault-shadow.png',
+    description: 'A cognitive processing tool translating daily logs into key patterns about the user\'s subconscious shadow self.',
+    url: 'https://github.com/JamesMangao/LifeVault',
+  },
+  {
+    id: 'career',
+    number: '05',
+    title: 'Career Advisor',
+    image: '/projects/lifevault-career.png',
+    description: 'Holistic career path simulator that reviews profiles and guides users through custom educational milestones.',
+    url: 'https://github.com/JamesMangao/LifeVault',
+  },
 ]
 
 const parishFeatures = [
@@ -56,67 +100,20 @@ function TechBadge({ label }: { label: string }) {
   )
 }
 
-function Carousel() {
-  const [index, setIndex] = useState(0)
-  const go = (dir: number) =>
-    setIndex((prev) => (prev + dir + lifeVaultShots.length) % lifeVaultShots.length)
-
-  return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-border bg-secondary/40">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, scale: 1.02 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={lifeVaultShots[index].src}
-            alt={lifeVaultShots[index].alt}
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      <button
-        type="button"
-        aria-label="Previous screenshot"
-        onClick={() => go(-1)}
-        className="glass absolute left-3 top-1/2 -translate-y-1/2 rounded-full p-2 text-foreground transition-colors hover:text-brand-blue"
-      >
-        <ChevronLeft className="size-4" />
-      </button>
-      <button
-        type="button"
-        aria-label="Next screenshot"
-        onClick={() => go(1)}
-        className="glass absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-2 text-foreground transition-colors hover:text-brand-blue"
-      >
-        <ChevronRight className="size-4" />
-      </button>
-
-      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
-        {lifeVaultShots.map((shot, i) => (
-          <button
-            key={shot.src}
-            type="button"
-            aria-label={`Go to screenshot ${i + 1}`}
-            onClick={() => setIndex(i)}
-            className={`h-1.5 rounded-full transition-all ${
-              i === index ? 'w-6 bg-brand-blue' : 'w-1.5 bg-foreground/40'
-            }`}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export function Projects() {
+  const [activeCard, setActiveCard] = useState<LifeVaultCard | null>(null)
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveCard(null)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   return (
     <section id="projects" className="relative px-4 py-24">
       <div className="mx-auto max-w-6xl">
@@ -128,36 +125,40 @@ export function Projects() {
 
         {/* Featured: LifeVault */}
         <Reveal>
-          <article className="glass overflow-hidden rounded-3xl">
-            <div className="grid gap-0 lg:grid-cols-2">
-              <div className="p-5 sm:p-6">
-                <Carousel />
-              </div>
+          <article className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950/40 p-6 sm:p-8 lg:p-12 shadow-2xl">
+            {/* Ambient glows inside container */}
+            <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
+            <div className="absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-purple-600/10 blur-[100px] pointer-events-none" />
 
-              <div className="flex flex-col p-6 sm:p-8">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple px-3 py-1 text-xs font-semibold text-primary-foreground">
-                    <Star className="size-3.5" />
+            <div className="relative z-10 grid gap-8 lg:grid-cols-12 items-center">
+              {/* Left Column: LifeVault Details */}
+              <div className="lg:col-span-5 flex flex-col">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                    <Sparkles className="size-3" />
                     Flagship Project
                   </span>
                 </div>
-                <h3 className="mt-4 font-heading text-2xl font-bold sm:text-3xl">
+
+                <h3 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl text-white">
                   LifeVault
                 </h3>
-                <p className="mt-3 leading-relaxed text-muted-foreground">
-                  An AI-powered journaling and productivity platform designed to
-                  transform user journals into meaningful insights.
+
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  An AI-powered journaling platform that transforms personal journals
+                  into meaningful insights using multiple AI-assisted tools.
                 </p>
 
-                <div className="mt-5">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    Key Features
+                {/* Features list matching mock layout */}
+                <div className="mt-6">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                    Features
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {lifeVaultFeatures.map((f) => (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {displayFeatures.map((f) => (
                       <span
                         key={f}
-                        className="rounded-md border border-border bg-secondary/50 px-2.5 py-1 text-xs text-foreground/90"
+                        className="rounded-full border border-white/5 bg-white/5 px-3 py-1 text-xs text-foreground/90 transition-colors hover:border-white/10 hover:bg-white/10"
                       >
                         {f}
                       </span>
@@ -165,58 +166,195 @@ export function Projects() {
                   </div>
                 </div>
 
-                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                {/* Stack & Role Side by Side */}
+                <div className="mt-6 grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                      Tech Stack
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                      Stack
                     </p>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {['Laravel', 'PHP', 'MySQL', 'Firebase', 'JavaScript', 'HTML', 'CSS'].map(
-                        (t) => (
-                          <TechBadge key={t} label={t} />
-                        ),
-                      )}
-                    </div>
+                    <p className="mt-1 text-xs sm:text-sm font-medium text-white/90 leading-relaxed">
+                      Laravel 12 &middot; PHP &middot; MySQL &middot; Firebase &middot; JavaScript &middot; Tailwind CSS &middot; Alpine.js
+                    </p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                      AI Integrations
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                      Role
                     </p>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {['OpenRouter API', 'Groq API', 'Cerebras API'].map((t) => (
-                        <TechBadge key={t} label={t} />
-                      ))}
-                    </div>
+                    <p className="mt-1 text-xs sm:text-sm font-medium text-white/90 leading-relaxed">
+                      Lead Developer (Team of 3)
+                    </p>
                   </div>
                 </div>
 
-                <p className="mt-5 text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground">Role:</span>{' '}
-                  Full-Stack Developer (Solo Project)
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-3">
+                {/* Actions */}
+                <div className="mt-8 flex flex-wrap gap-3">
                   <a
-                    href="#"
-                    className="glow-blue inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                    href="https://github.com/JamesMangao/LifeVault"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-blue-500/30"
                   >
                     <ExternalLink className="size-4" />
-                    Live Demo
+                    View on GitHub
                   </a>
                   <a
                     href="https://github.com/JamesMangao"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-border bg-card/50 px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-card"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/10 hover:border-white/20"
                   >
                     <GithubIcon className="size-4" />
-                    GitHub
+                    GitHub Profile
                   </a>
+                </div>
+              </div>
+
+              {/* Right Column: 5-Card Grid layout */}
+              <div className="lg:col-span-7">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                  {/* Column 1: Cards 01, 03, 05 */}
+                  <div className="flex flex-col gap-4 lg:gap-6">
+                    {lifeVaultCards.filter((_, idx) => idx % 2 === 0).map((card) => (
+                      <div
+                        key={card.id}
+                        onClick={() => setActiveCard(card)}
+                        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg"
+                      >
+                        {/* Glow effect centered in the card */}
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
+
+                        {/* Card Number */}
+                        <span className="relative z-10 text-[10px] font-mono tracking-widest text-white/30 uppercase mb-2 group-hover:text-blue-400/60 transition-colors">
+                          {card.number}
+                        </span>
+
+                        {/* Card Title */}
+                        <h4 className="relative z-10 text-base sm:text-lg font-semibold tracking-wide text-white group-hover:text-blue-400 transition-colors">
+                          {card.title}
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Column 2: Cards 02, 04 (staggered down on larger screens) */}
+                  <div className="flex flex-col gap-4 lg:gap-6 lg:pt-8">
+                    {lifeVaultCards.filter((_, idx) => idx % 2 !== 0).map((card) => (
+                      <div
+                        key={card.id}
+                        onClick={() => setActiveCard(card)}
+                        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg"
+                      >
+                        {/* Glow effect centered in the card */}
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
+
+                        {/* Card Number */}
+                        <span className="relative z-10 text-[10px] font-mono tracking-widest text-white/30 uppercase mb-2 group-hover:text-blue-400/60 transition-colors">
+                          {card.number}
+                        </span>
+
+                        {/* Card Title */}
+                        <h4 className="relative z-10 text-base sm:text-lg font-semibold tracking-wide text-white group-hover:text-blue-400 transition-colors">
+                          {card.title}
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </article>
         </Reveal>
+
+        {/* Interactive Lightbox Modal */}
+        <AnimatePresence>
+          {activeCard && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
+              onClick={() => setActiveCard(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="relative w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Browser Topbar Mockup */}
+                <div className="flex items-center justify-between border-b border-white/10 bg-slate-900/60 px-4 py-3">
+                  {/* Mac control dots */}
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
+                    <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+                    <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
+                  </div>
+
+                  {/* URL Bar */}
+                  <div className="hidden sm:flex items-center gap-2 rounded-md bg-slate-950/60 px-3 py-1.5 text-xs text-muted-foreground w-72 md:w-96 justify-center border border-white/5 font-mono select-none">
+                    <span className="text-white/20">https://</span>
+                    <span className="text-white/60">lifevault.app/</span>
+                    <span className="text-blue-400">{activeCard.id}</span>
+                  </div>
+
+                  {/* Close button */}
+                  <button
+                    type="button"
+                    aria-label="Close dialog"
+                    onClick={() => setActiveCard(null)}
+                    className="rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
+                  >
+                    <X className="size-4" />
+                  </button>
+                </div>
+
+                {/* Modal Content Frame */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950 flex items-center justify-center p-1 sm:p-2">
+                  {!imageErrors[activeCard.id] ? (
+                    <Image
+                      src={activeCard.image}
+                      alt={`${activeCard.title} Screenshot Preview`}
+                      fill
+                      sizes="(max-width: 1200px) 100vw, 90vw"
+                      className="object-contain"
+                      onError={() =>
+                        setImageErrors((prev) => ({ ...prev, [activeCard.id]: true }))
+                      }
+                      priority
+                    />
+                  ) : (
+                    /* Fallback Setup Screen when image does not exist yet */
+                    <div className="relative w-full h-full flex flex-col items-center justify-center text-center p-6 bg-grid">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.06),transparent_60%)] pointer-events-none" />
+
+                      <div className="relative z-10 max-w-md flex flex-col items-center">
+                        <div className="mb-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4 text-blue-400 shadow-inner">
+                          <Upload className="size-8 animate-pulse" />
+                        </div>
+                        <h4 className="text-lg font-bold text-white tracking-wide">
+                          {activeCard.title} Preview Pending
+                        </h4>
+                        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                          {activeCard.description}
+                        </p>
+                        <div className="mt-6 rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-4 py-3 text-xs text-yellow-200/90 font-mono text-left w-full">
+                          <p className="text-yellow-400 font-semibold mb-1">&#x26A0;&#xFE0F; Setup Required:</p>
+                          <p>Place your screenshot file at:</p>
+                          <p className="mt-1 text-white select-all bg-black/40 px-2 py-1 rounded border border-white/5 break-all">
+                            public/projects/lifevault-{activeCard.id}.png
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
 
         {/* Secondary projects */}
         <div className="mt-6 grid gap-6 lg:grid-cols-2">

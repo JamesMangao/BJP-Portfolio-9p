@@ -39,7 +39,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Let's build something together"
-          description="I'm open to junior developer roles and freelance opportunities. Reach out through any channel below."
+          description="I'm open to junior developer roles, IT tech support roles, and freelance opportunities. Reach out through any channel below."
         />
 
         <Reveal>

@@ -38,7 +38,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="mt-6 text-balance font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Bienvinido James <span className="gradient-text">Publico</span>
+            <span className="gradient-text">Bienvinido James Publico</span>
           </motion.h1>
 
           <motion.p
@@ -47,7 +47,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="mt-4 text-pretty text-lg font-medium text-foreground/90 sm:text-xl"
           >
-            Junior Laravel Developer &amp; Full-Stack Web Developer
+            Full-Stack Web Developer, Laravel &amp; IT Tech Support
           </motion.p>
 
           <motion.p

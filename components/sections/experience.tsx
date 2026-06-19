@@ -4,11 +4,9 @@ import { Reveal, SectionHeading } from '@/components/reveal'
 import { Briefcase, Clock } from 'lucide-react'
 
 const responsibilities = [
-  'OS Installation',
-  'Hardware Diagnostics',
-  'PC Building',
-  'Troubleshooting',
-  'Technical Support',
+  'Diagnosed and resolved 10+ hardware/software issues weekly across desktop and laptop systems.',
+  'Deployed OS and software configurations; assembled and performance-tested PC builds against quality standards.',
+  'Delivered end-user technical support and preventive maintenance, strengthening client communication and structured troubleshooting skills.',
 ]
 
 export function Experience() {
@@ -32,10 +30,10 @@ export function Experience() {
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <h3 className="font-heading text-lg font-bold">
-                      Computer &amp; Laptop Technician Intern
+                      IT Technician Intern
                     </h3>
                     <p className="text-sm font-medium text-brand-blue">
-                      Milestone Computers Laguna
+                      Milestone Computers Laguna &bull; San Pedro, Laguna
                     </p>
                   </div>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs text-muted-foreground">
@@ -47,16 +45,13 @@ export function Experience() {
                 <p className="mt-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                   Responsibilities
                 </p>
-                <div className="mt-3 flex flex-wrap gap-2">
+                <ul className="mt-3 list-disc list-outside pl-4 space-y-2.5 text-sm text-muted-foreground">
                   {responsibilities.map((r) => (
-                    <span
-                      key={r}
-                      className="rounded-lg border border-border bg-secondary/50 px-3 py-1.5 text-sm text-foreground/90"
-                    >
-                      {r}
-                    </span>
+                    <li key={r} className="leading-relaxed">
+                      <span className="text-foreground/90">{r}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
           </Reveal>

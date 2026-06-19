@@ -68,7 +68,7 @@ export function Navbar() {
           href="#hero"
           className="font-heading text-base font-bold tracking-tight"
         >
-          <span className="gradient-text">BJP</span>
+          <span className="gradient-text">Bienvinido James</span>
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">

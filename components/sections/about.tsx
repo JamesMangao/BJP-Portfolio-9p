@@ -7,17 +7,17 @@ const highlights = [
   {
     icon: Code2,
     title: 'Laravel Expertise',
-    text: 'My strongest skill set — building complete applications from planning and database design to deployment.',
+    text: 'Building complete applications from planning and database design to deployment, applying MVC architecture, Eloquent ORM, and Blade templating.',
   },
   {
     icon: Database,
     title: 'Backend Systems',
-    text: 'Designing reliable data models, REST APIs, and maintainable server-side architecture.',
+    text: 'Designing reliable data models, RESTful APIs, and maintainable server-side architecture with role-based access control.',
   },
   {
     icon: Sparkles,
     title: 'AI-Powered Apps',
-    text: 'Integrating modern AI APIs to turn raw data into meaningful, actionable insights.',
+    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras) to surface meaningful insights from user data.',
   },
 ]
 
@@ -34,27 +34,20 @@ export function About() {
           <Reveal>
             <div className="glass space-y-5 rounded-2xl p-7 leading-relaxed text-muted-foreground sm:p-9">
               <p>
-                I am a{' '}
+                BS Information Technology graduate from{' '}
                 <span className="font-medium text-foreground">
-                  BS Information Technology graduate
-                </span>{' '}
-                from Lyceum of San Pedro passionate about web development,
-                backend systems, and AI-powered applications.
-              </p>
-              <p>
-                My strongest expertise is{' '}
-                <span className="font-medium text-foreground">
-                  Laravel development
+                  Lyceum of San Pedro (May 2026)
                 </span>
-                . I enjoy building complete web applications from planning and
-                database design to deployment and maintenance.
+                , with hands-on experience building and deploying full-stack web applications using Laravel, PHP, MySQL, Firebase, and Tailwind CSS.
               </p>
               <p>
-                I independently developed{' '}
-                <span className="gradient-text font-semibold">LifeVault</span>,
-                an AI-powered journaling and productivity platform featuring
-                AI-assisted resume analysis, career guidance, storytelling,
-                behavioral pattern recognition, and a custom AI chatbot.
+                Led development of an AI-powered journaling platform as the primary developer on a{' '}
+                <span className="font-medium text-foreground">3-person team</span> — from architecture and database design through Railway deployment.
+              </p>
+              <p>
+                Currently building a second full-stack{' '}
+                <span className="gradient-text font-semibold">Laravel application</span>{' '}
+                for a real client.
               </p>
             </div>
           </Reveal>
