@@ -27,7 +27,7 @@ export function Education() {
                 <div className="mt-5 flex flex-wrap gap-3">
                   <span className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-4 py-2 text-sm text-foreground/90">
                     <CalendarDays className="size-4 text-brand-blue" />
-                    Graduation: May 2026
+                    Graduated: May 2026
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-4 py-2 text-sm text-foreground/90">
                     <Award className="size-4 text-brand-purple" />
