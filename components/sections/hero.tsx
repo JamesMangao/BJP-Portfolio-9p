@@ -47,7 +47,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="mt-4 text-pretty text-lg font-medium text-foreground/90 sm:text-xl"
           >
-            Full-Stack Web Developer, Laravel &amp; IT Tech Support
+            Junior Laravel Developer | Full-Stack &amp; Desktop App Developer
           </motion.p>
 
           <motion.p

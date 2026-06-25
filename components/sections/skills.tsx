@@ -9,13 +9,15 @@ import {
   Terminal,
   Wrench,
   Boxes,
+  Monitor,
+  ShieldCheck,
 } from 'lucide-react'
 
 const groups = [
   {
     icon: Layout,
     title: 'Frontend',
-    skills: ['HTML5', 'CSS3', 'JavaScript'],
+    skills: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'Alpine.js', 'Tailwind CSS'],
   },
   {
     icon: Server,
@@ -28,6 +30,11 @@ const groups = [
     skills: ['MySQL', 'Firebase'],
   },
   {
+    icon: Monitor,
+    title: 'Desktop',
+    skills: ['Tauri 2', 'Rust', 'React 18', 'Zustand', 'Windows API'],
+  },
+  {
     icon: Terminal,
     title: 'Programming',
     skills: ['Python', 'Java', 'C++'],
@@ -35,12 +42,17 @@ const groups = [
   {
     icon: Wrench,
     title: 'Tools',
-    skills: ['GitHub', 'Railway', 'VS Code'],
+    skills: ['GitHub', 'Railway', 'VS Code', 'Vite'],
   },
   {
     icon: Boxes,
     title: 'Technologies',
-    skills: ['REST APIs', 'AJAX', 'JSON', 'Tailwind CSS'],
+    skills: ['REST APIs', 'AJAX', 'JSON', 'Tesseract OCR', 'Poppler'],
+  },
+  {
+    icon: ShieldCheck,
+    title: 'IT Support',
+    skills: ['Hardware Diagnostics', 'OS Installation', 'Technical Troubleshooting'],
   },
 ]
 

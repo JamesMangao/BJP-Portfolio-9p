@@ -1,7 +1,7 @@
 'use client'
 
 import { Reveal, SectionHeading } from '@/components/reveal'
-import { Code2, Database, Sparkles } from 'lucide-react'
+import { Code2, Database, Sparkles, Monitor } from 'lucide-react'
 
 const highlights = [
   {
@@ -17,7 +17,12 @@ const highlights = [
   {
     icon: Sparkles,
     title: 'AI-Powered Apps',
-    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras) to surface meaningful insights from user data.',
+    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras) to turn raw data into meaningful insights — each routed to the model best suited for the task.',
+  },
+  {
+    icon: Monitor,
+    title: 'Desktop Development',
+    text: 'Building fully offline Windows apps with Tauri (Rust) and React — systems-level work beyond the web stack, including Win32 API access and UAC privilege architecture.',
   },
 ]
 
@@ -34,20 +39,7 @@ export function About() {
           <Reveal>
             <div className="glass space-y-5 rounded-2xl p-7 leading-relaxed text-muted-foreground sm:p-9">
               <p>
-                BS Information Technology graduate from{' '}
-                <span className="font-medium text-foreground">
-                  Lyceum of San Pedro (May 2026)
-                </span>
-                , with hands-on experience building and deploying full-stack web applications using Laravel, PHP, MySQL, Firebase, and Tailwind CSS.
-              </p>
-              <p>
-                Led development of an AI-powered journaling platform as the primary developer on a{' '}
-                <span className="font-medium text-foreground">3-person team</span> — from architecture and database design through Railway deployment.
-              </p>
-              <p>
-                Currently building a second full-stack{' '}
-                <span className="gradient-text font-semibold">Laravel application</span>{' '}
-                for a real client.
+                I'm an Information Technology graduate from Lyceum of San Pedro with a focus on Laravel development. I served as lead developer on LifeVault, an AI-powered journaling platform built with a 3-person team as an IT finals project — handling the full Laravel build, from architecture and database design to AI integration and deployment on Railway. I also independently built and released PCFixAI, a fully offline AI-powered Windows desktop app using Tauri (Rust) and React. I'm currently building a second full-stack Laravel application — a parish management portal — for a real client.
               </p>
             </div>
           </Reveal>
