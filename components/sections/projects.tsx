@@ -12,6 +12,7 @@ import {
   Sparkles,
   X,
   Upload,
+  Monitor,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
@@ -443,6 +444,63 @@ export function Projects() {
                     <span className="font-medium text-foreground">Role:</span>{' '}
                     Mobile Developer
                   </p>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <article className="glass flex h-full flex-col overflow-hidden rounded-3xl">
+              <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
+                <Image
+                  src="/projects/pcfixai.png"
+                  alt="PCFixAI desktop application interface"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-center gap-2">
+                  <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
+                    <Monitor className="size-4" />
+                  </div>
+                  <h3 className="font-heading text-xl font-bold">PCFixAI</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Creates a System Restore point before every scan — no internet required, no data leaves the machine.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {['One-Click Scan', 'Auto-Fix Agent', 'Live System Metrics', 'AI Predictions', 'Chat Assistant', 'System Restore', 'Job History', 'Toolkit (30+ Tools)'].map((f) => (
+                    <span
+                      key={f}
+                      className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
+                    >
+                      {f}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-auto pt-5">
+                  <div className="flex flex-wrap gap-1.5">
+                    {['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'Zustand', 'Windows API'].map((t) => (
+                      <TechBadge key={t} label={t} />
+                    ))}
+                  </div>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    <span className="font-medium text-foreground">Role:</span>{' '}
+                    Solo Developer
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <a
+                      href="https://github.com/JamesMangao/PCFixAI"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                    >
+                      <GithubIcon className="size-4" />
+                      View on GitHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </article>
