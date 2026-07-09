@@ -7,6 +7,7 @@ const responsibilities = [
   'Diagnosed and resolved 10+ hardware/software issues weekly across desktop and laptop systems.',
   'Deployed OS and software configurations; assembled and performance-tested PC builds against quality standards.',
   'Delivered end-user technical support and preventive maintenance, strengthening client communication and structured troubleshooting skills.',
+  'Accompanied senior technicians on client site visits for CCTV installation projects, gaining direct field exposure to camera setup and system configuration.',
 ]
 
 export function Experience() {

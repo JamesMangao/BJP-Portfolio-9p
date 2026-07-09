@@ -32,7 +32,7 @@ const groups = [
   {
     icon: Monitor,
     title: 'Desktop',
-    skills: ['Tauri 2', 'Rust', 'React 18', 'Zustand', 'Windows API'],
+    skills: ['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'windows-rs (Win32 API)', 'Vite', 'Zustand', 'Framer Motion'],
   },
   {
     icon: Terminal,
@@ -47,12 +47,12 @@ const groups = [
   {
     icon: Boxes,
     title: 'Technologies',
-    skills: ['REST APIs', 'AJAX', 'JSON', 'Tesseract OCR', 'Poppler'],
+    skills: ['REST APIs', 'AJAX', 'JSON', 'Tesseract OCR', 'Poppler', 'Flutter', 'Android Studio'],
   },
   {
     icon: ShieldCheck,
     title: 'IT Support',
-    skills: ['Hardware Diagnostics', 'OS Installation', 'Technical Troubleshooting'],
+    skills: ['Hardware Diagnostics', 'OS Installation & Reformatting', 'PC Assembly & Testing', 'Printer & Peripheral Configuration', 'Basic Network Troubleshooting', 'Remote Support Tools (AnyDesk, TeamViewer)', 'End-User Technical Support', 'Windows 7/8/10'],
   },
 ]
 

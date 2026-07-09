@@ -17,12 +17,12 @@ const highlights = [
   {
     icon: Sparkles,
     title: 'AI-Powered Apps',
-    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras) to turn raw data into meaningful insights — each routed to the model best suited for the task.',
+    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras) in LifeVault to turn journal data into meaningful insights — each routed to the model best suited for the task.',
   },
   {
     icon: Monitor,
     title: 'Desktop Development',
-    text: 'Building fully offline Windows apps with Tauri (Rust) and React — systems-level work beyond the web stack, including Win32 API access and UAC privilege architecture.',
+    text: 'Building fully offline Windows apps with Tauri 2 (Rust) and React — systems-level work beyond the web stack, including Win32 API access via windows-rs and UAC privilege architecture.',
   },
 ]
 
@@ -39,7 +39,7 @@ export function About() {
           <Reveal>
             <div className="glass space-y-5 rounded-2xl p-7 leading-relaxed text-muted-foreground sm:p-9">
               <p>
-                I'm an Information Technology graduate from Lyceum of San Pedro with a focus on Laravel development. I served as lead developer on LifeVault, an AI-powered journaling platform built with a 3-person team as an IT finals project — handling the full Laravel build, from architecture and database design to AI integration and deployment on Railway. I also independently built and released PCFixAI, a fully offline AI-powered Windows desktop app using Tauri (Rust) and React. I'm currently building a second full-stack Laravel application — a parish management portal — for a real client.
+                Recent BS Information Technology graduate from Lyceum of San Pedro with hands-on experience in full-stack web development (Laravel, PHP, MySQL), IT technical support (500-hour OJT at Milestone Computers Laguna), and mobile app development (Flutter/Android Studio). I build real, deployed projects — from AI-powered web platforms to Windows desktop diagnostic tools with a Rust backend. Certified by Cisco Networking Academy in IT Customer Support Basics and Computer Hardware Basics (July 2026). Open to IT Tech Support, Junior Developer, and Desktop Support roles.
               </p>
             </div>
           </Reveal>

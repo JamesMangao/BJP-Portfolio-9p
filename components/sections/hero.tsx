@@ -47,7 +47,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="mt-4 text-pretty text-lg font-medium text-foreground/90 sm:text-xl"
           >
-            Junior Laravel Developer | Full-Stack &amp; Desktop App Developer
+            IT Graduate | Full-Stack Developer | IT Tech Support | Flutter | Open to Work
           </motion.p>
 
           <motion.p
@@ -56,8 +56,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.24 }}
             className="mx-auto mt-4 max-w-xl text-pretty leading-relaxed text-muted-foreground lg:mx-0"
           >
-            Building full-stack web applications with Laravel, PHP, MySQL,
-            JavaScript, and AI-powered solutions.
+            Building full-stack web and mobile applications with Laravel, PHP,
+            MySQL, JavaScript, Flutter, and AI-powered solutions.
           </motion.p>
 
           <motion.div

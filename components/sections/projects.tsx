@@ -427,22 +427,21 @@ export function Projects() {
                     <Smartphone className="size-4" />
                   </div>
                   <h3 className="font-heading text-xl font-bold">
-                    Android Application
+                    EcoCycle: Smart Recycling Reward System
                   </h3>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Academic mobile application project focused on usability and
-                  application logic.
+                  Full-stack capstone project — Flutter mobile app (Android Studio) for end users with reward tracking, Laravel/PHP web admin dashboard, and IoT integration with a smart recycling bin enabling real-time data exchange between hardware and app.
                 </p>
                 <div className="mt-auto pt-5">
                   <div className="flex flex-wrap gap-1.5">
-                    {['Android', 'Java', 'Mobile UI'].map((t) => (
+                    {['Flutter', 'Android Studio', 'Laravel', 'PHP', 'MySQL', 'IoT'].map((t) => (
                       <TechBadge key={t} label={t} />
                     ))}
                   </div>
                   <p className="mt-3 text-sm text-muted-foreground">
                     <span className="font-medium text-foreground">Role:</span>{' '}
-                    Mobile Developer
+                    Full-Stack & Mobile Developer
                   </p>
                 </div>
               </div>
@@ -468,10 +467,10 @@ export function Projects() {
                   <h3 className="font-heading text-xl font-bold">PCFixAI</h3>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Creates a System Restore point before every scan — no internet required, no data leaves the machine.
+                  Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, 12-tab toolkit with 30+ system tools, optional local AI via Ollama with offline fallback. Deployed at v1.2.0, June 2026.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
-                  {['One-Click Scan', 'Auto-Fix Agent', 'Live System Metrics', 'AI Predictions', 'Chat Assistant', 'System Restore', 'Job History', 'Toolkit (30+ Tools)'].map((f) => (
+                  {['One-Click Scan', 'Auto-Fix Agent', 'Rust + Win32 API Backend', 'Live System Metrics', 'AI via Ollama', 'Chat Assistant', 'System Restore', 'Job History', 'Toolkit (30+ Tools)'].map((f) => (
                     <span
                       key={f}
                       className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
@@ -482,7 +481,7 @@ export function Projects() {
                 </div>
                 <div className="mt-auto pt-5">
                   <div className="flex flex-wrap gap-1.5">
-                    {['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'Zustand', 'Windows API'].map((t) => (
+                    {['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'Windows API'].map((t) => (
                       <TechBadge key={t} label={t} />
                     ))}
                   </div>

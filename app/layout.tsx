@@ -13,9 +13,9 @@ const siteUrl = 'https://bienvinido-james-publico.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Bienvinido James Publico | Laravel & Full-Stack Web Developer',
+  title: 'Bienvinido James Publico — IT Graduate | Laravel Developer | IT Tech Support',
   description:
-    'Portfolio of Bienvinido James Publico — Junior Laravel Developer & Full-Stack Web Developer building full-stack applications with Laravel, PHP, MySQL, JavaScript, and AI-powered solutions.',
+    'BS IT graduate from San Pedro, Laguna. Full-stack Laravel developer, Flutter mobile developer, Tauri/Rust desktop app developer, and IT Tech Support specialist. Open to work.',
   generator: 'v0.app',
   keywords: [
     'Bienvinido James Publico',
@@ -26,21 +26,32 @@ export const metadata: Metadata = {
     'JavaScript',
     'AI Applications',
     'Portfolio',
+    'Flutter',
+    'Android Studio',
+    'IT Support',
+    'Desktop Support',
+    'Hardware Troubleshooting',
+    'Tauri',
+    'Rust',
+    'Windows API',
+    'Cisco',
+    'San Pedro Laguna',
+    'IT Tech Support',
   ],
   authors: [{ name: 'Bienvinido James Publico' }],
   openGraph: {
-    title: 'Bienvinido James Publico | Laravel & Full-Stack Web Developer',
+    title: 'Bienvinido James Publico — IT Graduate | Laravel Developer | IT Tech Support',
     description:
-      'Junior Laravel Developer & Full-Stack Web Developer building full-stack applications with Laravel, PHP, MySQL, JavaScript, and AI-powered solutions.',
+      'BS IT graduate from San Pedro, Laguna. Full-stack Laravel developer, Flutter mobile developer, Tauri/Rust desktop app developer, and IT Tech Support specialist. Open to work.',
     url: siteUrl,
     siteName: 'Bienvinido James Publico Portfolio',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bienvinido James Publico | Laravel & Full-Stack Web Developer',
+    title: 'Bienvinido James Publico — IT Graduate | Laravel Developer | IT Tech Support',
     description:
-      'Junior Laravel Developer & Full-Stack Web Developer building AI-powered full-stack applications.',
+      'BS IT graduate from San Pedro, Laguna. Full-stack Laravel developer, Flutter mobile developer, Tauri/Rust desktop app developer, and IT Tech Support specialist. Open to work.',
   },
   icons: {
     icon: [

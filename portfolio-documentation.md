@@ -48,17 +48,16 @@ Exclusive **dark theme** using OKLCH color space.
 
 ### 1. Hero (`#hero`)
 - Full-screen intro with gradient name "Bienvinido James Publico"
-- Subtitle: "Junior Laravel Developer | Full-Stack & Desktop App Developer"
+- Subtitle: "IT Graduate | Full-Stack Developer | IT Tech Support | Flutter | Open to Work"
 - Animated PHP Artisan terminal window (`php artisan serve`)
 - "Available for opportunities" badge with pulsing dot
 - CTA buttons: "View Projects" and "Contact Me"
 - Social links: GitHub, LinkedIn, Email
 
 ### 2. About (`#about`)
-- IT graduate from Lyceum of San Pedro, focused on Laravel development
-- Lead developer on LifeVault (team of 3, IT finals project)
-- Independently built and released PCFixAI (Tauri/Rust desktop app)
-- Currently building a parish management portal for a real client
+- Recent BS IT graduate from Lyceum of San Pedro with hands-on experience in full-stack web development, IT technical support (500-hour OJT), and mobile app development (Flutter/Android Studio)
+- Certified by Cisco Networking Academy in IT Customer Support Basics and Computer Hardware Basics (July 2026)
+- Open to IT Tech Support, Junior Developer, and Desktop Support roles
 - Four highlight cards: **Laravel Expertise**, **Backend Systems**, **AI-Powered Apps**, **Desktop Development**
 
 ### 3. Skills (`#skills`)
@@ -69,11 +68,11 @@ Exclusive **dark theme** using OKLCH color space.
 | Frontend | HTML5, CSS3, JavaScript, TypeScript, Alpine.js, Tailwind CSS |
 | Backend | PHP, Laravel 12 |
 | Database | MySQL, Firebase |
-| Desktop | Tauri 2, Rust, React 18, Zustand, Windows API |
+| Desktop | Tauri 2, Rust, React 18, TypeScript, windows-rs (Win32 API), Vite, Zustand, Framer Motion |
 | Programming | Python, Java, C++ |
 | Tools | GitHub, Railway, VS Code, Vite |
-| Technologies | REST APIs, AJAX, JSON, Tesseract OCR, Poppler |
-| IT Support | Hardware Diagnostics, OS Installation, Technical Troubleshooting |
+| Technologies | REST APIs, AJAX, JSON, Tesseract OCR, Poppler, Flutter, Android Studio |
+| IT Support | Hardware Diagnostics, OS Installation & Reformatting, PC Assembly & Testing, Printer & Peripheral Configuration, Basic Network Troubleshooting, Remote Support Tools (AnyDesk, TeamViewer), End-User Technical Support, Windows 7/8/10 |
 
 ### 4. Projects (`#projects`)
 Three project tiers:
@@ -91,26 +90,35 @@ Three project tiers:
 - 11 features: Home Page, Mass Schedules, Mass Intentions, Inquiry System, Inquiry Tracking, Gallery, Events, Donations, About Page, Admin Dashboard, Role-Based Access Control
 - Roles: Super Admin, Parish Staff, SocCom
 
-**c) Android Application** — Academic mobile app
-- Stack: Android, Java, Mobile UI
-- Role: Mobile Developer
+**c) EcoCycle: Smart Recycling Reward System** — Full-stack capstone project
+- Stack: Flutter, Android Studio, Laravel, PHP, MySQL, IoT
+- Role: Full-Stack & Mobile Developer
+- Flutter mobile app for end users with reward tracking, Laravel/PHP web admin dashboard, and IoT integration with a smart recycling bin
 
 **d) PCFixAI** — Offline AI-powered Windows desktop app
-- Stack: Tauri 2, Rust, React 18, TypeScript, Zustand, Windows API
+- Stack: Tauri 2, Rust, React 18, TypeScript, Windows API
 - Role: Solo Developer
-- Features: One-Click Scan, Auto-Fix Agent, Live System Metrics, AI Predictions, Chat Assistant, System Restore, Job History, Toolkit (30+ Tools)
+- Features: One-Click Scan, Auto-Fix Agent, Rust + Win32 API Backend, Live System Metrics, AI via Ollama, Chat Assistant, System Restore, Job History, Toolkit (30+ Tools)
+- Deployed at v1.2.0, June 2026
 - Link: [GitHub](https://github.com/JamesMangao/PCFixAI)
 
 ### 5. Experience (`#experience`)
 - **IT Technician Intern** @ Milestone Computers Laguna (500-hour OJT)
 - Hardware/software diagnostics, OS deployment, PC builds, end-user support
+- Accompanied senior technicians on client site visits for CCTV installation projects
 - Vertical timeline layout with gradient bar and glowing node
 
-### 6. Education (`#education`)
+### 6. Certifications (`#certifications`)
+- **IT Customer Support Basics** — Cisco Networking Academy (July 2026)
+  - Credential ID: 7580b32f-3d2e-436e-8235-c840a1ac8819
+- **Computer Hardware Basics** — Cisco Networking Academy (July 2026)
+  - Credential ID: 74ce47a8-9757-450b-ab61-bf2c6dbc695a
+
+### 7. Education (`#education`)
 - **BS Information Technology** @ Lyceum of San Pedro (Graduated May 2026)
 - Deportment Award
 
-### 7. Contact (`#contact`)
+### 8. Contact (`#contact`)
 - 2x2 grid of contact cards: Email, Phone (+639922336236), LinkedIn, GitHub
 - Prominent "Send me an email" button
 - Open to junior dev roles, IT tech support, and freelance opportunities
@@ -151,10 +159,12 @@ components/
 ├── site-footer.tsx
 ├── sections/
 │   ├── about.tsx
+│   ├── certifications.tsx
 │   ├── contact.tsx
 │   ├── education.tsx
 │   ├── experience.tsx
 │   ├── hero.tsx
+│   ├── itsupport.tsx
 │   ├── projects.tsx
 │   └── skills.tsx
 └── ui/

@@ -6,6 +6,8 @@ import { About } from '@/components/sections/about'
 import { Skills } from '@/components/sections/skills'
 import { Projects } from '@/components/sections/projects'
 import { Experience } from '@/components/sections/experience'
+import { ITSupport } from '@/components/sections/itsupport'
+import { Certifications } from '@/components/sections/certifications'
 import { Education } from '@/components/sections/education'
 import { Contact } from '@/components/sections/contact'
 import { SiteFooter } from '@/components/site-footer'
@@ -22,6 +24,8 @@ export default function Page() {
         <Skills />
         <Projects />
         <Experience />
+        <ITSupport />
+        <Certifications />
         <Education />
         <Contact />
       </main>
