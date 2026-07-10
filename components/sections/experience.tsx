@@ -2,12 +2,24 @@
 
 import { Reveal, SectionHeading } from '@/components/reveal'
 import { Briefcase, Clock } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 
 const responsibilities = [
-  'Diagnosed and resolved 10+ hardware/software issues weekly across desktop and laptop systems.',
-  'Deployed OS and software configurations; assembled and performance-tested PC builds against quality standards.',
-  'Delivered end-user technical support and preventive maintenance, strengthening client communication and structured troubleshooting skills.',
-  'Accompanied senior technicians on client site visits for CCTV installation projects, gaining direct field exposure to camera setup and system configuration.',
+  'Diagnosed and resolved 10+ hardware and software issues per week across desktop and laptop systems – including OS failures, driver conflicts, and application errors.',
+  'Deployed, configured, and validated Windows OS installations, drivers, and software for client machines; assembled and performance-tested PC builds from components.',
+  'Provided end-user technical support and clear troubleshooting guidance to non-technical clients, minimizing downtime and improving client satisfaction.',
+  'Executed preventive maintenance schedules across managed devices, extending hardware lifespan and reducing recurring failures.',
+]
+
+const skills = [
+  'Windows 10/11',
+  'Hardware Diagnostics',
+  'OS Installation',
+  'Driver Configuration',
+  'PC Assembly',
+  'End-User Support',
+  'Preventive Maintenance',
+  'Technical Troubleshooting',
 ]
 
 export function Experience() {
@@ -53,6 +65,18 @@ export function Experience() {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-5 flex flex-wrap gap-1.5">
+                  {skills.map((s) => (
+                    <Badge
+                      key={s}
+                      variant="secondary"
+                      className="rounded-md border-border text-[11px] text-foreground/90"
+                    >
+                      {s}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
