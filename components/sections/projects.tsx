@@ -13,6 +13,7 @@ import {
   X,
   Upload,
   Monitor,
+  Search,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
@@ -43,7 +44,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     number: '01',
     title: 'Landing',
     image: '/projects/lifevault-landing.png',
-    description: 'A beautifully crafted entry portal highlighting LifeVault\'s journaling tools and psychological insight generator.',
+    description: "A beautifully crafted entry portal highlighting LifeVault's journaling tools and psychological insight generator.",
     url: 'https://github.com/JamesMangao/LifeVault',
   },
   {
@@ -67,7 +68,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     number: '04',
     title: 'Shadow Self',
     image: '/projects/lifevault-shadow.png',
-    description: 'A cognitive processing tool translating daily logs into key patterns about the user\'s subconscious shadow self.',
+    description: "A cognitive processing tool translating daily logs into key patterns about the user's subconscious shadow self.",
     url: 'https://github.com/JamesMangao/LifeVault',
   },
   {
@@ -80,18 +81,81 @@ const lifeVaultCards: LifeVaultCard[] = [
   },
 ]
 
-const parishFeatures = [
-  'Home Page',
-  'Mass Schedules',
-  'Mass Intentions',
-  'Inquiry System',
-  'Inquiry Tracking',
-  'Gallery',
-  'Events',
-  'Donations',
-  'About Page',
-  'Admin Dashboard',
-  'Role-Based Access Control',
+type SecondaryProject = {
+  id: string
+  title: string
+  description: string
+  image: string
+  imageAlt: string
+  features: string[]
+  techStack: string[]
+  role: string
+  githubUrl?: string
+  icon?: React.ComponentType<{ className?: string }>
+}
+
+const secondaryProjects: SecondaryProject[] = [
+  {
+    id: 'parish',
+    title: 'Parish Website',
+    description: 'Modern parish management and information website.',
+    image: '/projects/parish-website.png',
+    imageAlt: 'Parish management website homepage',
+    features: [
+      'Home Page',
+      'Mass Schedules',
+      'Mass Intentions',
+      'Inquiry System',
+      'Inquiry Tracking',
+      'Gallery',
+      'Events',
+      'Donations',
+      'About Page',
+      'Admin Dashboard',
+      'Role-Based Access Control',
+    ],
+    techStack: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
+    role: 'Full-Stack Developer',
+  },
+  {
+    id: 'ecocycle',
+    title: 'EcoCycle: Smart Recycling Reward System',
+    description: 'Full-stack capstone project — Flutter mobile app (Android Studio) for end users with reward tracking, Laravel/PHP web admin dashboard, and IoT integration with a smart recycling bin enabling real-time data exchange between hardware and app.',
+    image: '/projects/android-app.png',
+    imageAlt: 'Android academic application mockup',
+    features: [
+      'Flutter Mobile App',
+      'Reward Tracking',
+      'Laravel Admin Dashboard',
+      'IoT Integration',
+      'Real-time Data Exchange',
+    ],
+    techStack: ['Flutter', 'Android Studio', 'Laravel', 'PHP', 'MySQL', 'IoT'],
+    role: 'Full-Stack & Mobile Developer',
+    icon: Smartphone,
+  },
+  {
+    id: 'pcfixai',
+    title: 'PCFixAI',
+    description: 'Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, 12-tab toolkit with 30+ system tools, optional local AI via Ollama with offline fallback. Deployed at v1.2.0, June 2026.',
+    image: '/projects/pcfixai.png',
+    imageAlt: 'PCFixAI desktop application interface',
+    features: [
+      'One-Click Scan',
+      'Auto-Fix Agent',
+      'Rust + Win32 API Backend',
+      'Live System Metrics',
+      'AI via Ollama',
+      'Chat Assistant',
+      'System Restore',
+      'Job History',
+      'Toolkit (30+ Tools)',
+    ],
+    techStack: ['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'Windows API'],
+    role: 'Solo Developer',
+    githubUrl: 'https://github.com/JamesMangao/PCFixAI',
+    icon: Monitor,
+  },
 ]
 
 function TechBadge({ label }: { label: string }) {
@@ -106,11 +170,14 @@ export function Projects() {
   const [selectedCard, setSelectedCard] = useState<LifeVaultCard>(lifeVaultCards[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [selectedProject, setSelectedProject] = useState<SecondaryProject | null>(null)
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsModalOpen(false)
+        setIsProjectModalOpen(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -274,7 +341,7 @@ export function Projects() {
           </article>
         </Reveal>
 
-        {/* Interactive Lightbox Modal */}
+        {/* Interactive Lightbox Modal for LifeVault */}
         <AnimatePresence>
           {isModalOpen && selectedCard && (
             <motion.div
@@ -282,7 +349,7 @@ export function Projects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => { setSelectedCard(lifeVaultCards[0]); setIsModalOpen(false); }}
             >
               <motion.div
                 initial={{ scale: 0.95, y: 15 }}
@@ -312,7 +379,7 @@ export function Projects() {
                   <button
                     type="button"
                     aria-label="Close dialog"
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() => { setSelectedCard(lifeVaultCards[0]); setIsModalOpen(false); }}
                     className="rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
                   >
                     <X className="size-4" />
@@ -364,154 +431,166 @@ export function Projects() {
           )}
         </AnimatePresence>
 
+        {/* Secondary Project Modal */}
+        <AnimatePresence>
+          {isProjectModalOpen && selectedProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
+              onClick={() => setIsProjectModalOpen(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  aria-label="Close project preview"
+                  onClick={() => setIsProjectModalOpen(false)}
+                  className="absolute right-4 top-4 z-20 rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
+                >
+                  <X className="size-5" />
+                </button>
+
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 80vw"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-center gap-2">
+                    {selectedProject.icon && (
+                      <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
+                        <selectedProject.icon className="size-4" />
+                      </div>
+                    )}
+                    <h3 className="font-heading text-xl font-bold text-white">{selectedProject.title}</h3>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{selectedProject.description}</p>
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {selectedProject.features.map((f) => (
+                      <span
+                        key={f}
+                        className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
+                      >
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-5">
+                    <div className="flex flex-wrap gap-1.5">
+                      {selectedProject.techStack.map((t) => (
+                        <TechBadge key={t} label={t} />
+                      ))}
+                    </div>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      <span className="font-medium text-foreground">Role:</span>{' '}
+                      {selectedProject.role}
+                    </p>
+                    {selectedProject.githubUrl && (
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <a
+                          href={selectedProject.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                        >
+                          <GithubIcon className="size-4" />
+                          View on GitHub
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
 
         {/* Secondary projects */}
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
-          <Reveal delay={0.08}>
-            <article className="glass flex h-full flex-col overflow-hidden rounded-3xl">
-              <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
-                <Image
-                  src="/projects/parish-website.png"
-                  alt="Parish management website homepage"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-heading text-xl font-bold">Parish Website</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Modern parish management and information website.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {parishFeatures.map((f) => (
-                    <span
-                      key={f}
-                      className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
-                    >
-                      {f}
-                    </span>
-                  ))}
+          {secondaryProjects.map((project, i) => (
+            <Reveal key={project.id} delay={i * 0.08}>
+              <article
+                className="glass group flex h-full flex-col overflow-hidden rounded-3xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10"
+                onClick={() => { setSelectedProject(project); setIsProjectModalOpen(true); }}
+              >
+                <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  {/* Zoom overlay */}
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <Search className="size-8 text-white/90 drop-shadow-lg" />
+                  </div>
                 </div>
-                <div className="mt-4">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    Roles
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {['Super Admin', 'Parish Staff', 'SocCom'].map((r) => (
-                      <TechBadge key={r} label={r} />
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex items-center gap-2">
+                    {project.icon && (
+                      <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
+                        <project.icon className="size-4" />
+                      </div>
+                    )}
+                    <h3 className="font-heading text-xl font-bold">{project.title}</h3>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {project.features.map((f) => (
+                      <span
+                        key={f}
+                        className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
+                      >
+                        {f}
+                      </span>
                     ))}
                   </div>
-                </div>
-                <div className="mt-auto pt-5">
-                  <div className="flex flex-wrap gap-1.5">
-                    {['Laravel', 'PHP', 'MySQL', 'JavaScript'].map((t) => (
-                      <TechBadge key={t} label={t} />
-                    ))}
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">Role:</span>{' '}
-                    Full-Stack Developer
-                  </p>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-
-          <Reveal delay={0.16}>
-            <article className="glass flex h-full flex-col overflow-hidden rounded-3xl">
-              <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
-                <Image
-                  src="/projects/android-app.png"
-                  alt="Android academic application mockup"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2">
-                  <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
-                    <Smartphone className="size-4" />
-                  </div>
-                  <h3 className="font-heading text-xl font-bold">
-                    EcoCycle: Smart Recycling Reward System
-                  </h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Full-stack capstone project — Flutter mobile app (Android Studio) for end users with reward tracking, Laravel/PHP web admin dashboard, and IoT integration with a smart recycling bin enabling real-time data exchange between hardware and app.
-                </p>
-                <div className="mt-auto pt-5">
-                  <div className="flex flex-wrap gap-1.5">
-                    {['Flutter', 'Android Studio', 'Laravel', 'PHP', 'MySQL', 'IoT'].map((t) => (
-                      <TechBadge key={t} label={t} />
-                    ))}
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">Role:</span>{' '}
-                    Full-Stack & Mobile Developer
-                  </p>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-
-          <Reveal delay={0.24}>
-            <article className="glass flex h-full flex-col overflow-hidden rounded-3xl">
-              <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
-                <Image
-                  src="/projects/pcfixai.png"
-                  alt="PCFixAI desktop application interface"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2">
-                  <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
-                    <Monitor className="size-4" />
-                  </div>
-                  <h3 className="font-heading text-xl font-bold">PCFixAI</h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, 12-tab toolkit with 30+ system tools, optional local AI via Ollama with offline fallback. Deployed at v1.2.0, June 2026.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {['One-Click Scan', 'Auto-Fix Agent', 'Rust + Win32 API Backend', 'Live System Metrics', 'AI via Ollama', 'Chat Assistant', 'System Restore', 'Job History', 'Toolkit (30+ Tools)'].map((f) => (
-                    <span
-                      key={f}
-                      className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
-                    >
-                      {f}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-auto pt-5">
-                  <div className="flex flex-wrap gap-1.5">
-                    {['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'Windows API'].map((t) => (
-                      <TechBadge key={t} label={t} />
-                    ))}
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">Role:</span>{' '}
-                    Solo Developer
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    <a
-                      href="https://github.com/JamesMangao/PCFixAI"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
-                    >
-                      <GithubIcon className="size-4" />
-                      View on GitHub
-                    </a>
+                  <div className="mt-auto pt-5">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.techStack.map((t) => (
+                        <TechBadge key={t} label={t} />
+                      ))}
+                    </div>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      <span className="font-medium text-foreground">Role:</span>{' '}
+                      {project.role}
+                    </p>
+                    {project.githubUrl && (
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                        >
+                          <GithubIcon className="size-4" />
+                          View on GitHub
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            </article>
-          </Reveal>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
