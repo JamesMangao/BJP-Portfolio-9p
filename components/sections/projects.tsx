@@ -102,7 +102,7 @@ function TechBadge({ label }: { label: string }) {
 }
 
 export function Projects() {
-  const [activeCard, setActiveCard] = useState<LifeVaultCard | null>(null)
+  const [activeCard, setActiveCard] = useState<LifeVaultCard | null>(lifeVaultCards[0])
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
