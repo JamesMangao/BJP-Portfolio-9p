@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
+import { cn } from '@/lib/utils'
 
 const displayFeatures = [
   'Resume Analyzer',
@@ -102,13 +103,14 @@ function TechBadge({ label }: { label: string }) {
 }
 
 export function Projects() {
-  const [activeCard, setActiveCard] = useState<LifeVaultCard | null>(lifeVaultCards[0])
+  const [selectedCard, setSelectedCard] = useState<LifeVaultCard>(lifeVaultCards[0])
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setActiveCard(null)
+        setIsModalOpen(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -218,8 +220,11 @@ export function Projects() {
                     {lifeVaultCards.filter((_, idx) => idx % 2 === 0).map((card) => (
                       <div
                         key={card.id}
-                        onClick={() => setActiveCard(card)}
-                        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg"
+                        onClick={() => { setSelectedCard(card); setIsModalOpen(true); }}
+                        className={cn(
+                          "group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg",
+                          card.id === selectedCard.id && "border-brand-blue ring-1 ring-brand-blue"
+                        )}
                       >
                         {/* Glow effect centered in the card */}
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
@@ -242,8 +247,11 @@ export function Projects() {
                     {lifeVaultCards.filter((_, idx) => idx % 2 !== 0).map((card) => (
                       <div
                         key={card.id}
-                        onClick={() => setActiveCard(card)}
-                        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg"
+                        onClick={() => { setSelectedCard(card); setIsModalOpen(true); }}
+                        className={cn(
+                          "group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg",
+                          card.id === selectedCard.id && "border-brand-blue ring-1 ring-brand-blue"
+                        )}
                       >
                         {/* Glow effect centered in the card */}
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
@@ -268,13 +276,13 @@ export function Projects() {
 
         {/* Interactive Lightbox Modal */}
         <AnimatePresence>
-          {activeCard && (
+          {isModalOpen && selectedCard && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
-              onClick={() => setActiveCard(null)}
+              onClick={() => setIsModalOpen(false)}
             >
               <motion.div
                 initial={{ scale: 0.95, y: 15 }}
@@ -297,14 +305,14 @@ export function Projects() {
                   <div className="hidden sm:flex items-center gap-2 rounded-md bg-slate-950/60 px-3 py-1.5 text-xs text-muted-foreground w-72 md:w-96 justify-center border border-white/5 font-mono select-none">
                     <span className="text-white/20">https://</span>
                     <span className="text-white/60">lifevault.app/</span>
-                    <span className="text-blue-400">{activeCard.id}</span>
+                    <span className="text-blue-400">{selectedCard.id}</span>
                   </div>
 
                   {/* Close button */}
                   <button
                     type="button"
                     aria-label="Close dialog"
-                    onClick={() => setActiveCard(null)}
+                    onClick={() => setIsModalOpen(false)}
                     className="rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
                   >
                     <X className="size-4" />
@@ -313,15 +321,15 @@ export function Projects() {
 
                 {/* Modal Content Frame */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950 flex items-center justify-center p-1 sm:p-2">
-                  {!imageErrors[activeCard.id] ? (
+                  {!imageErrors[selectedCard.id] ? (
                     <Image
-                      src={activeCard.image}
-                      alt={`${activeCard.title} Screenshot Preview`}
+                      src={selectedCard.image}
+                      alt={`${selectedCard.title} Screenshot Preview`}
                       fill
                       sizes="(max-width: 1200px) 100vw, 90vw"
                       className="object-contain"
                       onError={() =>
-                        setImageErrors((prev) => ({ ...prev, [activeCard.id]: true }))
+                        setImageErrors((prev) => ({ ...prev, [selectedCard.id]: true }))
                       }
                       priority
                     />
@@ -335,16 +343,16 @@ export function Projects() {
                           <Upload className="size-8 animate-pulse" />
                         </div>
                         <h4 className="text-lg font-bold text-white tracking-wide">
-                          {activeCard.title} Preview Pending
+                          {selectedCard.title} Preview Pending
                         </h4>
                         <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                          {activeCard.description}
+                          {selectedCard.description}
                         </p>
                         <div className="mt-6 rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-4 py-3 text-xs text-yellow-200/90 font-mono text-left w-full">
                           <p className="text-yellow-400 font-semibold mb-1">&#x26A0;&#xFE0F; Setup Required:</p>
                           <p>Place your screenshot file at:</p>
                           <p className="mt-1 text-white select-all bg-black/40 px-2 py-1 rounded border border-white/5 break-all">
-                            public/projects/lifevault-{activeCard.id}.png
+                            public/projects/lifevault-{selectedCard.id}.png
                           </p>
                         </div>
                       </div>
