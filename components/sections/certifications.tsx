@@ -4,9 +4,17 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal, SectionHeading } from '@/components/reveal'
-import { ShieldCheck, Award, CalendarDays, Hash, X, Search } from 'lucide-react'
+import { ShieldCheck, Award, Globe, CalendarDays, Hash, X, Search, ExternalLink } from 'lucide-react'
 
 const certifications = [
+  {
+    icon: Globe,
+    name: 'Responsive Web Design',
+    issuer: 'freeCodeCamp',
+    date: 'July 2026',
+    credentialId: 'https://freecodecamp.org/certification/ciaxynn/responsive-web-design-v9',
+    image: '/certifications/Responsive-Web-Design_Certificate.png',
+  },
   {
     icon: ShieldCheck,
     name: 'IT Customer Support Basics',
@@ -84,10 +92,23 @@ export function Certifications() {
                     <CalendarDays className="size-3.5 text-brand-blue" />
                     {cert.date}
                   </span>
-                  <span className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs text-foreground/90">
-                    <Hash className="size-3.5 text-brand-purple" />
-                    <span className="truncate max-w-[180px]">{cert.credentialId}</span>
-                  </span>
+                  {cert.credentialId.startsWith('http') ? (
+                    <a
+                      href={cert.credentialId}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs text-foreground/90 hover:bg-secondary transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink className="size-3.5 text-brand-purple" />
+                      <span className="truncate max-w-[180px]">Verify Certificate ↗</span>
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs text-foreground/90">
+                      <Hash className="size-3.5 text-brand-purple" />
+                      <span className="truncate max-w-[180px]">{cert.credentialId}</span>
+                    </span>
+                  )}
                 </div>
               </div>
             </Reveal>
@@ -151,10 +172,22 @@ export function Certifications() {
                     <CalendarDays className="size-3.5 text-brand-blue" />
                     {selectedCert.date}
                   </span>
-                  <span className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs text-foreground/90">
-                    <Hash className="size-3.5 text-brand-purple" />
-                    <span className="font-mono truncate max-w-[240px]">{selectedCert.credentialId}</span>
-                  </span>
+                  {selectedCert.credentialId.startsWith('http') ? (
+                    <a
+                      href={selectedCert.credentialId}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs text-foreground/90 hover:bg-secondary transition-colors"
+                    >
+                      <ExternalLink className="size-3.5 text-brand-purple" />
+                      <span className="truncate max-w-[240px]">Verify Certificate ↗</span>
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-2 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs text-foreground/90">
+                      <Hash className="size-3.5 text-brand-purple" />
+                      <span className="font-mono truncate max-w-[240px]">{selectedCert.credentialId}</span>
+                    </span>
+                  )}
                 </div>
               </div>
             </motion.div>
