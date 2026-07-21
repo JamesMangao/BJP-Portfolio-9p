@@ -4,16 +4,24 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal, SectionHeading } from '@/components/reveal'
-import { ShieldCheck, Award, Globe, CalendarDays, Hash, X, Search, ExternalLink } from 'lucide-react'
+import { ShieldCheck, Award, Code2, CalendarDays, Hash, X, Search, ExternalLink } from 'lucide-react'
 
 const certifications = [
   {
-    icon: Globe,
+    icon: Code2,
     name: 'Responsive Web Design',
     issuer: 'freeCodeCamp',
     date: 'July 2026',
-    credentialId: 'https://freecodecamp.org/certification/ciaxynn/responsive-web-design-v9',
-    image: '/certifications/Responsive-Web-Design_Certificate.png',
+    credentialId: 'ciaxynn',
+    image: '/certifications/Responsive-Web-Design_Certification.png',
+  },
+  {
+    icon: Code2,
+    name: 'JavaScript',
+    issuer: 'freeCodeCamp',
+    date: 'July 2026',
+    credentialId: 'ciaxynn',
+    image: '/certifications/JavaScript_Certification.jpg',
   },
   {
     icon: ShieldCheck,
