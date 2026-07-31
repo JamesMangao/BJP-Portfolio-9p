@@ -39,6 +39,22 @@ const certifications = [
     credentialId: '74ce47a8-9757-450b-ab61-bf2c6dbc695a',
     image: '/certifications/Computer-Hardware-Basics_Certificate.jpg',
   },
+  {
+    icon: Code2,
+    name: 'Front-End Development Libraries',
+    issuer: 'freeCodeCamp',
+    date: 'July 2026',
+    credentialId: 'ciaxynn',
+    image: '/certifications/Front-End-Development-Libraries_Certification.jpg',
+  },
+  {
+    icon: Code2,
+    name: 'Python',
+    issuer: 'freeCodeCamp',
+    date: 'July 2026',
+    credentialId: 'ciaxynn',
+    image: '/certifications/Python_Certification.jpg',
+  },
 ]
 
 export function Certifications() {
