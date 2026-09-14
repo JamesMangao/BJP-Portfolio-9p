@@ -12,7 +12,7 @@ const certifications = [
     name: 'Responsive Web Design',
     issuer: 'freeCodeCamp',
     date: 'July 2026',
-    credentialId: 'ciaxynn',
+    credentialId: 'https://www.freecodecamp.org/certification/ciaxynn/responsive-web-design',
     image: '/certifications/Responsive-Web-Design_Certification.png',
   },
   {
@@ -20,7 +20,7 @@ const certifications = [
     name: 'JavaScript',
     issuer: 'freeCodeCamp',
     date: 'July 2026',
-    credentialId: 'ciaxynn',
+    credentialId: 'https://www.freecodecamp.org/certification/ciaxynn/javascript-algorithms-and-data-structures',
     image: '/certifications/JavaScript_Certification.jpg',
   },
   {
@@ -44,7 +44,7 @@ const certifications = [
     name: 'Front-End Development Libraries',
     issuer: 'freeCodeCamp',
     date: 'July 2026',
-    credentialId: 'ciaxynn',
+    credentialId: 'https://www.freecodecamp.org/certification/ciaxynn/front-end-development-libraries',
     image: '/certifications/Front-End-Development-Libraries_Certification.jpg',
   },
   {
@@ -52,7 +52,7 @@ const certifications = [
     name: 'Python',
     issuer: 'freeCodeCamp',
     date: 'July 2026',
-    credentialId: 'ciaxynn',
+    credentialId: 'https://www.freecodecamp.org/certification/ciaxynn/scientific-computing-with-python',
     image: '/certifications/Python_Certification.jpg',
   },
 ]

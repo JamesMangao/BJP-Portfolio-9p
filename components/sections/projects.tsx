@@ -91,6 +91,7 @@ type SecondaryProject = {
   techStack: string[]
   role: string
   githubUrl?: string
+  liveUrl?: string
   icon?: React.ComponentType<{ className?: string }>
 }
 
@@ -113,9 +114,12 @@ const secondaryProjects: SecondaryProject[] = [
       'About Page',
       'Admin Dashboard',
       'Role-Based Access Control',
+      'AI Chatbot',
+      'RBAC (Super Admin/Staff/SocCom)',
     ],
-    techStack: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
+    techStack: ['Laravel', 'PHP', 'PostgreSQL', 'JavaScript'],
     role: 'Full-Stack Developer',
+    liveUrl: 'https://sto-rosario-parish.onrender.com',
   },
   {
     id: 'ecocycle',
@@ -137,7 +141,7 @@ const secondaryProjects: SecondaryProject[] = [
   {
     id: 'pcfixai',
     title: 'PCFixAI',
-    description: 'Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, 12-tab toolkit with 30+ system tools, optional local AI via Ollama with offline fallback. Deployed at v1.2.0, June 2026.',
+    description: 'Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, 12-tab toolkit with 30+ system tools, optional local AI via Ollama with offline fallback. Deployed at v1.4.0, August 2026.',
     image: '/projects/pcfixai.png',
     imageAlt: 'PCFixAI desktop application interface',
     features: [
@@ -150,6 +154,8 @@ const secondaryProjects: SecondaryProject[] = [
       'System Restore',
       'Job History',
       'Toolkit (30+ Tools)',
+      'Security & Power Suite',
+      'Event Log & Diagnostics',
     ],
     techStack: ['Tauri 2', 'Rust', 'React 18', 'TypeScript', 'Windows API'],
     role: 'Solo Developer',
@@ -501,17 +507,30 @@ export function Projects() {
                       <span className="font-medium text-foreground">Role:</span>{' '}
                       {selectedProject.role}
                     </p>
-                    {selectedProject.githubUrl && (
+                    {(selectedProject.githubUrl || selectedProject.liveUrl) && (
                       <div className="mt-4 flex flex-wrap gap-3">
-                        <a
-                          href={selectedProject.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
-                        >
-                          <GithubIcon className="size-4" />
-                          View on GitHub
-                        </a>
+                        {selectedProject.githubUrl && (
+                          <a
+                            href={selectedProject.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                          >
+                            <GithubIcon className="size-4" />
+                            View on GitHub
+                          </a>
+                        )}
+                        {selectedProject.liveUrl && (
+                          <a
+                            href={selectedProject.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                          >
+                            <ExternalLink className="size-4" />
+                            Live Website
+                          </a>
+                        )}
                       </div>
                     )}
                   </div>
@@ -573,17 +592,30 @@ export function Projects() {
                       <span className="font-medium text-foreground">Role:</span>{' '}
                       {project.role}
                     </p>
-                    {project.githubUrl && (
+                    {(project.githubUrl || project.liveUrl) && (
                       <div className="mt-4 flex flex-wrap gap-3">
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
-                        >
-                          <GithubIcon className="size-4" />
-                          View on GitHub
-                        </a>
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                          >
+                            <GithubIcon className="size-4" />
+                            View on GitHub
+                          </a>
+                        )}
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                          >
+                            <ExternalLink className="size-4" />
+                            Live Website
+                          </a>
+                        )}
                       </div>
                     )}
                   </div>

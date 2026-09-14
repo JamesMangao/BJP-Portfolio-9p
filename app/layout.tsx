@@ -9,7 +9,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const siteUrl = 'https://bienvinido-james-publico.vercel.app'
+const siteUrl = 'https://bjp-portfolio.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
