@@ -14,6 +14,7 @@ import {
   Upload,
   Monitor,
   Search,
+  ShoppingBag,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
@@ -99,7 +100,7 @@ const secondaryProjects: SecondaryProject[] = [
   {
     id: 'parish',
     title: 'Parish Website',
-    description: 'Modern parish management and information website.',
+    description: 'Modern parish management and information website with 27 controllers and 15 Eloquent models.',
     image: '/projects/parish-website.png',
     imageAlt: 'Parish management website homepage',
     features: [
@@ -141,19 +142,21 @@ const secondaryProjects: SecondaryProject[] = [
   {
     id: 'pcfixai',
     title: 'PCFixAI',
-    description: 'Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, 12-tab toolkit with 30+ system tools, optional local AI via Ollama with offline fallback. Deployed at v1.4.0, August 2026.',
+    description: 'Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, parallel diagnostic scans via tokio::join! (~60% faster), 10-tab toolkit with 40+ system tools, built-in auto-updater (Tauri updater plugin), optional local AI via Ollama with offline fallback. Deployed at v1.4.0 (growth from v1.3.0 to v1.4.0), August 2026.',
     image: '/projects/pcfixai.png',
     imageAlt: 'PCFixAI desktop application interface',
     features: [
       'One-Click Scan',
       'Auto-Fix Agent',
+      'Parallel Diagnostic Scans (tokio::join!)',
+      'Auto-Updater (Tauri Plugin)',
       'Rust + Win32 API Backend',
       'Live System Metrics',
       'AI via Ollama',
       'Chat Assistant',
       'System Restore',
       'Job History',
-      'Toolkit (30+ Tools)',
+      'Toolkit (40+ Tools)',
       'Security & Power Suite',
       'Event Log & Diagnostics',
     ],
@@ -161,6 +164,31 @@ const secondaryProjects: SecondaryProject[] = [
     role: 'Solo Developer',
     githubUrl: 'https://github.com/JamesMangao/PCFixAI',
     icon: Monitor,
+  },
+  {
+    id: 'stardom',
+    title: 'STAR-DOM',
+    description: 'Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreSQL database, GCash/GOtyme e-wallet payments with two-step verification, J&T Express shipping integration, commission pipeline for custom artisan work, and a complete merchant studio dashboard.',
+    image: '/projects/stardom.png',
+    imageAlt: 'STAR-DOM artisan marketplace',
+    features: [
+      'Online Marketplace (33 Pages)',
+      'GCash / GOtyme E-Wallet Payments',
+      'Two-Step Payment Verification',
+      'J&T Express Shipping Integration',
+      'Commission Pipeline (5-Step)',
+      'Merchant Studio Dashboard',
+      'Admin Console & Role Management',
+      'BIR-Style Receipts with VAT',
+      'Product Catalog & Stock Management',
+      'Order Tracking & Status Line',
+      'Pop-up Event & Booth Manager',
+      'Review System',
+    ],
+    techStack: ['VB.NET', 'ASP.NET Web Forms', '.NET Framework 4.8', 'PostgreSQL', 'Npgsql', 'Docker'],
+    role: 'Full-Stack Developer',
+    githubUrl: 'https://github.com/JamesMangao/STAR-DOM',
+    icon: ShoppingBag,
   },
 ]
 
@@ -249,7 +277,7 @@ export function Projects() {
                       Stack
                     </p>
                     <p className="mt-1 text-xs sm:text-sm font-medium text-white/90 leading-relaxed">
-                      Laravel 12 &middot; PHP &middot; MySQL &middot; Firebase &middot; JavaScript &middot; Tailwind CSS &middot; Alpine.js
+                      Laravel 12 &middot; Blade &middot; Firebase (Authentication, Firestore) &middot; Tailwind CSS &middot; Groq / Cerebras / OpenRouter
                     </p>
                   </div>
                   <div>
@@ -257,7 +285,7 @@ export function Projects() {
                       Role
                     </p>
                     <p className="mt-1 text-xs sm:text-sm font-medium text-white/90 leading-relaxed">
-                      Lead Developer (Team of 3)
+                      Lead Developer (Team of 3) &middot; Academic Finals Project
                     </p>
                   </div>
                 </div>
@@ -274,7 +302,7 @@ export function Projects() {
                     View on GitHub
                   </a>
                   <a
-                    href="https://lifevault-182e.onrender.com"
+                    href="https://lifevault-t8jq.onrender.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/10 hover:border-white/20"
