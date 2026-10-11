@@ -9,6 +9,8 @@ const responsibilities = [
   'Deployed, configured, and validated Windows OS installations, drivers, and software for client machines; assembled and performance-tested PC builds from components.',
   'Provided end-user technical support and clear troubleshooting guidance to non-technical clients, minimizing downtime and improving client satisfaction.',
   'Executed preventive maintenance schedules across managed devices, extending hardware lifespan and reducing recurring failures.',
+  'Configured printers, peripherals, and basic network setups including router configuration and troubleshooting connectivity issues.',
+  'Documented common issues and solutions to build a knowledge base for faster resolution of recurring problems.',
 ]
 
 const skills = [
@@ -20,6 +22,8 @@ const skills = [
   'End-User Support',
   'Preventive Maintenance',
   'Technical Troubleshooting',
+  'Network Setup',
+  'Printer Configuration',
 ]
 
 export function Experience() {

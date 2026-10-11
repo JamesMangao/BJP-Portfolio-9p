@@ -56,8 +56,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.24 }}
             className="mx-auto mt-4 max-w-xl text-pretty leading-relaxed text-muted-foreground lg:mx-0"
           >
-            Building full-stack web and mobile applications with Laravel, PHP,
-            MySQL, JavaScript, Flutter, and AI-powered solutions.
+            Building full-stack web and desktop applications with Laravel, Rust,
+            TypeScript, React, Flutter, and AI-powered solutions. From artisan
+            e-commerce platforms to offline Windows diagnostic tools.
           </motion.p>
 
           <motion.div

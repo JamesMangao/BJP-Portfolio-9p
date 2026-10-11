@@ -22,12 +22,12 @@ const groups = [
   {
     icon: Server,
     title: 'Backend',
-    skills: ['PHP', 'Laravel 12'],
+    skills: ['PHP', 'Laravel 12', 'VB.NET', 'ASP.NET Web Forms'],
   },
   {
     icon: Database,
     title: 'Database',
-    skills: ['MySQL', 'Firebase'],
+    skills: ['MySQL', 'PostgreSQL', 'Firebase', 'Supabase', 'Firestore'],
   },
   {
     icon: Monitor,
@@ -42,12 +42,12 @@ const groups = [
   {
     icon: Wrench,
     title: 'Tools',
-    skills: ['GitHub', 'Railway', 'VS Code', 'Vite'],
+    skills: ['GitHub', 'Railway', 'Render', 'VS Code', 'Vite', 'Docker', 'IIS Express'],
   },
   {
     icon: Boxes,
     title: 'Technologies',
-    skills: ['REST APIs', 'AJAX', 'JSON', 'Tesseract OCR', 'Poppler', 'Flutter', 'Android Studio'],
+    skills: ['REST APIs', 'AJAX', 'JSON', 'Tesseract OCR', 'Poppler', 'Flutter', 'Android Studio', 'Npgsql', 'Framer Motion'],
   },
   {
     icon: ShieldCheck,

@@ -7,22 +7,22 @@ const highlights = [
   {
     icon: Code2,
     title: 'Laravel Expertise',
-    text: 'Building complete applications from planning and database design to deployment, applying MVC architecture, Eloquent ORM, and Blade templating.',
+    text: 'Building complete applications from planning and database design to deployment, applying MVC architecture, Eloquent ORM, and Blade templating. Experienced with role-based access, PDF generation, and email notifications.',
   },
   {
     icon: Database,
     title: 'Backend Systems',
-    text: 'Designing reliable data models, RESTful APIs, and maintainable server-side architecture with role-based access control.',
+    text: 'Designing reliable data models, RESTful APIs, and maintainable server-side architecture with role-based access control. Skilled in PostgreSQL, MySQL, Firebase, and Supabase.',
   },
   {
     icon: Sparkles,
     title: 'AI-Powered Apps',
-    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras) in LifeVault to turn journal data into meaningful insights — each routed to the model best suited for the task.',
+    text: 'Integrating multiple AI providers (OpenRouter, Groq, Cerebras, Ollama) in LifeVault and PCFixAI to turn data into meaningful insights — each routed to the model best suited for the task.',
   },
   {
     icon: Monitor,
     title: 'Desktop Development',
-    text: 'Building fully offline Windows apps with Tauri 2 (Rust) and React — systems-level work beyond the web stack, including Win32 API access via windows-rs and UAC privilege architecture.',
+    text: 'Building fully offline Windows apps with Tauri 2 (Rust) and React — systems-level work beyond the web stack, including Win32 API access via windows-rs, UAC privilege architecture, and parallel diagnostics.',
   },
 ]
 
@@ -39,7 +39,7 @@ export function About() {
           <Reveal>
             <div className="glass space-y-5 rounded-2xl p-7 leading-relaxed text-muted-foreground sm:p-9">
               <p>
-                Recent BS Information Technology graduate from Lyceum of San Pedro with hands-on experience in full-stack web development (Laravel, PHP, MySQL), IT technical support (500-hour OJT at Milestone Computers Laguna), and mobile app development (Flutter/Android Studio). I build real, deployed projects — from AI-powered web platforms to Windows desktop diagnostic tools with a Rust backend. Certified by Cisco Networking Academy in IT Customer Support Basics and Computer Hardware Basics (July 2026). Open to IT Tech Support, Junior Developer, and Desktop Support roles.
+                BS Information Technology graduate from Lyceum of San Pedro with hands-on experience in full-stack web development (Laravel, PHP, PostgreSQL), Windows desktop development (Tauri 2, Rust, React), mobile app development (Flutter/Android Studio), and IT technical support (500-hour OJT at Milestone Computers Laguna). I build real, deployed projects — from AI-powered web platforms and artisan e-commerce systems to Windows desktop diagnostic tools with a Rust backend. Certified by Cisco Networking Academy in IT Customer Support Basics and Computer Hardware Basics (July 2026). Open to IT Tech Support, Junior Developer, and Desktop Support roles.
               </p>
             </div>
           </Reveal>

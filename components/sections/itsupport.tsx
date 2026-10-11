@@ -8,6 +8,8 @@ const entry2Bullets = [
   'Troubleshot and resolved Windows software, driver, and connectivity issues for family and friends on an ongoing basis.',
   'Performed OS reinstalls, hardware upgrades, and system cleanups on personal and household machines.',
   'Built PCFixAI – a fully offline AI-powered Windows diagnostic and auto-repair desktop app (Tauri/Rust/React) – as a direct result of hands-on Windows troubleshooting experience.',
+  'Configured routers, set up home networks, and resolved connectivity issues for multiple households.',
+  'Provided remote support using AnyDesk and TeamViewer, diagnosing and resolving issues without physical access.',
 ]
 
 const entry2Skills = [
@@ -17,6 +19,7 @@ const entry2Skills = [
   'Hardware Upgrades',
   'Network Setup',
   'Router Configuration',
+  'Remote Support (AnyDesk, TeamViewer)',
 ]
 
 export function ITSupport() {

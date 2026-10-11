@@ -78,16 +78,17 @@ Exclusive **dark theme** using OKLCH color space.
 Three project tiers:
 
 **a) LifeVault (Flagship)** — AI-powered journaling platform
-- Stack: Laravel 12, PHP, MySQL, Firebase, JavaScript, Tailwind CSS, Alpine.js
-- Role: Lead Developer (Team of 3)
+- Stack: Laravel 12, Blade, Firebase (Authentication, Firestore), Tailwind CSS, Groq / Cerebras / OpenRouter
+- Role: Lead Developer (Team of 3, academic finals project)
 - Clickable 5-card grid → opens browser-mockup lightbox modal with screenshot preview
 - Features: Resume Analyzer, LifeStory Generator, Shadow Self Analyzer, Holistic Career Advisor, AI Chatbot, Authentication System, Dashboard Analytics
-- Links: [GitHub](https://github.com/JamesMangao/LifeVault), [Live](https://lifevault-182e.onrender.com)
+- Links: [GitHub](https://github.com/JamesMangao/LifeVault), [Live](https://lifevault-t8jq.onrender.com)
 
 **b) Parish Website** — Parish management & information system
-- Stack: Laravel, PHP, MySQL, JavaScript
+- Stack: Laravel, PHP, PostgreSQL, JavaScript
 - Role: Full-Stack Developer
-- 11 features: Home Page, Mass Schedules, Mass Intentions, Inquiry System, Inquiry Tracking, Gallery, Events, Donations, About Page, Admin Dashboard, Role-Based Access Control
+- Architecture: 27 controllers, 15 Eloquent models
+- Features: Home Page, Mass Schedules, Mass Intentions, Inquiry System, Inquiry Tracking, Gallery, Events, Donations, About Page, Admin Dashboard, Role-Based Access Control, AI Chatbot, RBAC (Super Admin/Staff/SocCom)
 - Roles: Super Admin, Parish Staff, SocCom
 
 **c) EcoCycle: Smart Recycling Reward System** — Full-stack capstone project
@@ -98,8 +99,8 @@ Three project tiers:
 **d) PCFixAI** — Offline AI-powered Windows desktop app
 - Stack: Tauri 2, Rust, React 18, TypeScript, Windows API
 - Role: Solo Developer
-- Features: One-Click Scan, Auto-Fix Agent, Rust + Win32 API Backend, Live System Metrics, AI via Ollama, Chat Assistant, System Restore, Job History, Toolkit (30+ Tools)
-- Deployed at v1.2.0, June 2026
+- Features: One-Click Scan, Auto-Fix Agent, Parallel Diagnostic Scans (tokio::join!), Auto-Updater (Tauri Plugin), Rust + Win32 API Backend, Live System Metrics, AI via Ollama, Chat Assistant, System Restore, Job History, 10-tab toolkit with 40+ system tools
+- Deployed at v1.4.0 (growth from v1.3.0 to v1.4.0), August 2026
 - Link: [GitHub](https://github.com/JamesMangao/PCFixAI)
 
 ### 5. Experience (`#experience`)
