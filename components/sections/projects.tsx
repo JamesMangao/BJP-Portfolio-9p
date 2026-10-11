@@ -169,7 +169,7 @@ const secondaryProjects: SecondaryProject[] = [
     id: 'stardom',
     title: 'STAR-DOM',
     description: 'Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreSQL database, GCash/GOtyme e-wallet payments with two-step verification, J&T Express shipping integration, commission pipeline for custom artisan work, and a complete merchant studio dashboard.',
-    image: '/projects/stardom.png',
+    image: '/projects/STARDOM.png',
     imageAlt: 'STAR-DOM artisan marketplace',
     features: [
       'Online Marketplace (33 Pages)',
