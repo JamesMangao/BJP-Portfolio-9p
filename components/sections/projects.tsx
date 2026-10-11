@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
+import { ProjectFilter } from '@/components/sections/project-filter'
 import { cn } from '@/lib/utils'
 
 const displayFeatures = [
@@ -200,12 +201,16 @@ function TechBadge({ label }: { label: string }) {
   )
 }
 
+const filterCategories = ['All', 'Laravel', 'React', 'Rust', 'Flutter', '.NET']
+
 export function Projects() {
   const [selectedCard, setSelectedCard] = useState<LifeVaultCard>(lifeVaultCards[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const [selectedProject, setSelectedProject] = useState<SecondaryProject | null>(null)
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
+  const [activeFilter, setActiveFilter] = useState('All')
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -217,6 +222,17 @@ export function Projects() {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const filteredProjects = activeFilter === 'All'
+    ? secondaryProjects
+    : secondaryProjects.filter(p =>
+        p.techStack.some(t => t.toLowerCase().includes(activeFilter.toLowerCase()))
+      )
 
   return (
     <section id="projects" className="relative px-4 py-24">
@@ -569,9 +585,31 @@ export function Projects() {
         </AnimatePresence>
 
 
-        {/* Secondary projects */}
+        {/* Project Filter */}
+        <ProjectFilter activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+
+        {/* Loading Skeleton */}
+        {isLoading ? (
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            {[1, 2].map((i) => (
+              <div key={i} className="glass animate-pulse rounded-3xl overflow-hidden">
+                <div className="aspect-[16/9] bg-secondary/40" />
+                <div className="p-6 space-y-3">
+                  <div className="h-6 w-3/4 rounded bg-secondary/40" />
+                  <div className="h-4 w-full rounded bg-secondary/40" />
+                  <div className="h-4 w-5/6 rounded bg-secondary/40" />
+                  <div className="flex gap-2">
+                    <div className="h-6 w-16 rounded-full bg-secondary/40" />
+                    <div className="h-6 w-20 rounded-full bg-secondary/40" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+        /* Secondary projects */
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
-          {secondaryProjects.map((project, i) => (
+          {filteredProjects.map((project, i) => (
             <Reveal key={project.id} delay={i * 0.08}>
               <article
                 className="glass group flex h-full flex-col overflow-hidden rounded-3xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10"
@@ -652,6 +690,7 @@ export function Projects() {
             </Reveal>
           ))}
         </div>
+        )}
       </div>
     </section>
   )

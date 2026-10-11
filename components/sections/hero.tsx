@@ -1,8 +1,6 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { ArrowRight, Mail } from 'lucide-react'
+import { ArrowRight, Mail, Download } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
+import { ProjectFilter } from '@/components/sections/project-filter'
 
 const codeLines = [
   '$ php artisan serve',
@@ -10,6 +8,26 @@ const codeLines = [
   'Route::get("/portfolio", fn () => $developer);',
   'class Developer extends FullStack { use Laravel; }',
 ]
+
+const achievements = [
+  { icon: '🎓', label: 'BS IT Graduate', sub: 'Lyceum of San Pedro' },
+  { icon: '💻', label: '5+ Full-Stack Apps', sub: 'Laravel, Rust, .NET, Flutter' },
+  { icon: '🏆', label: 'Cisco Certified', sub: 'IT Support & Hardware' },
+  { icon: '⏱️', label: '500+ OJT Hours', sub: 'Milestone Computers' },
+]
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+}
 
 export function Hero() {
   return (
@@ -19,54 +37,29 @@ export function Hero() {
     >
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="text-center lg:text-left">
-          <motion.span
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur"
-          >
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur animate-fade-in-up">
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-blue opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-brand-blue" />
             </span>
             Available for opportunities
-          </motion.span>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-            className="mt-6 text-balance font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
-          >
+          <h1 className="mt-6 text-balance font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl animate-fade-in-up-delay">
             <span className="gradient-text">Bienvinido James Publico</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-            className="mt-4 text-pretty text-lg font-medium text-foreground/90 sm:text-xl"
-          >
+          <p className="mt-4 text-pretty text-lg font-medium text-foreground/90 sm:text-xl animate-fade-in-up">
             IT Graduate | Full-Stack Developer | IT Tech Support | Flutter | Open to Work
-          </motion.p>
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24 }}
-            className="mx-auto mt-4 max-w-xl text-pretty leading-relaxed text-muted-foreground lg:mx-0"
-          >
+          <p className="mx-auto mt-4 max-w-xl text-pretty leading-relaxed text-muted-foreground lg:mx-0 animate-fade-in-up">
             Building full-stack web and desktop applications with Laravel, Rust,
             TypeScript, React, Flutter, and AI-powered solutions. From artisan
             e-commerce platforms to offline Windows diagnostic tools.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.32 }}
-            className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
-          >
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start animate-fade-in-up">
             <a
               href="#projects"
               className="glow-blue group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
@@ -81,14 +74,17 @@ export function Hero() {
               <Mail className="size-4" />
               Contact Me
             </a>
-          </motion.div>
+            <a
+              href="/Publico-Bienvinido-James-M.-Resume.pdf"
+              download
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card/50 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-card sm:w-auto"
+            >
+              <Download className="size-4" />
+              Resume
+            </a>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 flex items-center justify-center gap-3 lg:justify-start"
-          >
+          <div className="mt-8 flex items-center justify-center gap-3 lg:justify-start animate-fade-in-up">
             <a
               href="https://github.com/JamesMangao"
               target="_blank"
@@ -114,16 +110,25 @@ export function Hero() {
             >
               <Mail className="size-5" />
             </a>
-          </motion.div>
+          </div>
+
+          {/* Achievement Badges */}
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 animate-fade-in-up">
+            {achievements.map((a) => (
+              <div
+                key={a.label}
+                className="glass rounded-xl p-3 text-center transition-transform hover:scale-105"
+              >
+                <div className="text-2xl">{a.icon}</div>
+                <p className="mt-1 text-xs font-semibold text-foreground">{a.label}</p>
+                <p className="text-[10px] text-muted-foreground">{a.sub}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Code-inspired visual */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="relative mx-auto w-full max-w-md"
-        >
+        <div className="relative mx-auto w-full max-w-md animate-fade-in-up">
           <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-brand-blue/30 to-brand-purple/30 blur-2xl" />
           <div className="glass relative overflow-hidden rounded-2xl shadow-2xl">
             <div className="flex items-center gap-2 border-b border-border/60 px-4 py-3">
@@ -136,12 +141,10 @@ export function Hero() {
             </div>
             <div className="space-y-3 p-5 font-mono text-xs sm:text-sm">
               {codeLines.map((line, i) => (
-                <motion.p
+                <p
                   key={line}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.6 + i * 0.18 }}
-                  className="text-muted-foreground"
+                  className="text-muted-foreground animate-fade-in-up"
+                  style={{ animationDelay: `${0.6 + i * 0.18}s` }}
                 >
                   <span className="mr-3 select-none text-foreground/30">
                     {String(i + 1).padStart(2, '0')}
@@ -157,16 +160,12 @@ export function Hero() {
                   >
                     {line}
                   </span>
-                </motion.p>
+                </p>
               ))}
-              <motion.span
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
-                className="inline-block h-4 w-2 translate-y-0.5 bg-brand-purple"
-              />
+              <span className="inline-block h-4 w-2 translate-y-0.5 animate-pulse bg-brand-purple" />
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
