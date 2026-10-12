@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal, SectionHeading } from '@/components/reveal'
-import { Clock, ArrowRight, X } from 'lucide-react'
+import { Clock, ArrowRight, X, Calendar, Tag } from 'lucide-react'
 
 const blogPosts = [
   {
@@ -59,6 +59,23 @@ const blogPosts = [
 export function Blog() {
   const [selectedPost, setSelectedPost] = useState<typeof blogPosts[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    if (!isModalOpen) return
+
+    const handleScroll = () => {
+      const modal = document.getElementById('blog-modal-content')
+      if (!modal) return
+      const scrollTop = modal.scrollTop
+      const scrollHeight = modal.scrollHeight - modal.clientHeight
+      setScrollProgress(scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0)
+    }
+
+    const modal = document.getElementById('blog-modal-content')
+    modal?.addEventListener('scroll', handleScroll)
+    return () => modal?.removeEventListener('scroll', handleScroll)
+  }, [isModalOpen])
 
   return (
     <section id="blog" className="relative px-4 py-24">
@@ -80,7 +97,7 @@ export function Blog() {
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-3 left-3 flex gap-2">
@@ -135,9 +152,17 @@ export function Blog() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Reading Progress Bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-30">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-brand-blue to-brand-purple"
+                  style={{ width: `${scrollProgress}%` }}
+                />
+              </div>
+
               <button
                 type="button"
                 aria-label="Close blog post"
@@ -147,45 +172,48 @@ export function Blog() {
                 <X className="size-5" />
               </button>
 
-              <div className="relative aspect-[16/7] w-full overflow-hidden">
-                <img
-                  src={selectedPost.image}
-                  alt={selectedPost.title}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070b19] via-[#070b19]/60 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="size-3" />
-                      {selectedPost.date}
-                    </span>
-                    <span>·</span>
-                    <span>{selectedPost.readTime}</span>
+              <div id="blog-modal-content" className="max-h-[90vh] overflow-y-auto">
+                <div className="relative aspect-[16/7] w-full overflow-hidden">
+                  <img
+                    src={selectedPost.image}
+                    alt={selectedPost.title}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b19] via-[#070b19]/60 to-transparent" />
+                  <div className="absolute bottom-4 left-5 right-5">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">
+                        <Calendar className="size-3" />
+                        {selectedPost.date}
+                      </span>
+                      <span>·</span>
+                      <span>{selectedPost.readTime}</span>
+                    </div>
+                    <h2 className="mt-2 font-heading text-xl font-bold text-white sm:text-2xl">
+                      {selectedPost.title}
+                    </h2>
                   </div>
-                  <h2 className="mt-2 font-heading text-xl font-bold text-white sm:text-2xl">
-                    {selectedPost.title}
-                  </h2>
                 </div>
-              </div>
 
-              <div className="p-6 sm:p-8">
-                <div className="flex flex-wrap gap-2">
-                  {selectedPost.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-foreground/90"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-6 space-y-4">
-                  {selectedPost.content.map((paragraph, i) => (
-                    <p key={i} className="text-sm leading-relaxed text-muted-foreground">
-                      {paragraph}
-                    </p>
-                  ))}
+                <div className="p-6 sm:p-8">
+                  <div className="flex flex-wrap gap-2">
+                    {selectedPost.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs text-foreground/90"
+                      >
+                        <Tag className="size-3" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-6 space-y-4">
+                    {selectedPost.content.map((paragraph, i) => (
+                      <p key={i} className="text-sm leading-relaxed text-muted-foreground">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>

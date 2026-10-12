@@ -1,20 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  ChevronLeft,
-  ChevronRight,
   ExternalLink,
   Smartphone,
-  Star,
   Sparkles,
   X,
   Upload,
   Monitor,
   Search,
   ShoppingBag,
+  TrendingUp,
+  Zap,
+  Award,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
@@ -99,6 +99,7 @@ type SecondaryProject = {
     problem: string
     solution: string
     result: string
+    metrics: { label: string; value: string }[]
   }
 }
 
@@ -125,6 +126,16 @@ const secondaryProjects: SecondaryProject[] = [
     techStack: ['Laravel', 'PHP', 'PostgreSQL', 'JavaScript', 'Blade'],
     role: 'Full-Stack Developer',
     liveUrl: 'https://sto-rosario-parish.onrender.com',
+    caseStudy: {
+      problem: 'Parish coordination was paper-based — mass intentions, events, and inquiries were tracked manually, causing delays and miscommunication.',
+      solution: 'Built a Laravel 12 portal with Supabase backend, RBAC for three roles, automated email notifications, and an AI chatbot for common queries.',
+      result: 'Replaced manual coordination entirely. Staff can now manage mass intentions, events, and inquiries from a single dashboard with automated workflows.',
+      metrics: [
+        { label: 'Controllers', value: '27' },
+        { label: 'Models', value: '15' },
+        { label: 'User Roles', value: '3' },
+      ],
+    },
   },
   {
     id: 'ecocycle',
@@ -143,6 +154,16 @@ const secondaryProjects: SecondaryProject[] = [
     techStack: ['Flutter', 'Android Studio', 'Laravel', 'PHP', 'MySQL', 'IoT'],
     role: 'Full-Stack & Mobile Developer',
     icon: Smartphone,
+    caseStudy: {
+      problem: 'Recycling rates were low because people lacked motivation and awareness of their environmental impact.',
+      solution: 'Built a gamified Flutter app with reward points, QR scanning, and an IoT smart bin that tracks recycling in real-time.',
+      result: 'Created a complete ecosystem where users recycle, earn points, and redeem rewards — making environmental action fun and measurable.',
+      metrics: [
+        { label: 'Platform', value: 'Mobile + Web' },
+        { label: 'IoT Devices', value: 'Smart Bin' },
+        { label: 'Backend', value: 'Laravel' },
+      ],
+    },
   },
   {
     id: 'pcfixai',
@@ -175,6 +196,11 @@ const secondaryProjects: SecondaryProject[] = [
       problem: 'Windows users lack a single tool that can diagnose issues, fix them safely, and explain what went wrong — most tools are either too technical or too limited.',
       solution: 'Built a Tauri 2 desktop app with a Rust backend for real system diagnostics via Win32 API, parallel scans for speed, and an AI chat (Ollama) that explains fixes in plain language. Auto-fix agent creates backups before making changes.',
       result: 'v1.5.1 shipped with 40+ tools, 60% faster scans, virus scanner integration, and 20+ stability patches. Users can diagnose, fix, and learn about their system in one place.',
+      metrics: [
+        { label: 'System Tools', value: '40+' },
+        { label: 'Scan Speed', value: '+60%' },
+        { label: 'Version', value: 'v1.5.1' },
+      ],
     },
   },
   {
@@ -207,6 +233,11 @@ const secondaryProjects: SecondaryProject[] = [
       problem: 'Small artisan businesses need an online store but can\'t afford complex e-commerce platforms. They also need to handle custom commissions, not just product sales.',
       solution: 'Built a 33-page e-commerce platform with a unique two-step payment flow (order first, pay after shipping quote), a 5-step commission pipeline for custom work, and a merchant studio that gives the owner full control.',
       result: 'The platform handles everything from product sales to custom artisan commissions, with BIR-compliant receipts and a complete order management system — all from a single ASP.NET Web Forms app.',
+      metrics: [
+        { label: 'Pages', value: '33' },
+        { label: 'Payment Steps', value: '2' },
+        { label: 'Commission Steps', value: '5' },
+      ],
     },
   },
 ]
@@ -220,6 +251,35 @@ function TechBadge({ label }: { label: string }) {
 }
 
 const filterCategories = ['All', 'Laravel', 'React', 'Rust', 'Flutter', '.NET']
+
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const [transform, setTransform] = useState('')
+  const ref = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    setTransform(`perspective(1000px) rotateX(${(y - 0.5) * -8}deg) rotateY(${(x - 0.5) * 8}deg) scale(1.02)`)
+  }
+
+  const handleMouseLeave = () => {
+    setTransform('perspective(1000px) rotateX(0) rotateY(0) scale(1)')
+  }
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+      style={{ transform, transition: 'transform 0.15s ease-out' }}
+    >
+      {children}
+    </div>
+  )
+}
 
 export function Projects() {
   const [selectedCard, setSelectedCard] = useState<LifeVaultCard>(lifeVaultCards[0])
@@ -514,7 +574,7 @@ export function Projects() {
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.95, y: 15 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+                className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
@@ -549,7 +609,11 @@ export function Projects() {
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{selectedProject.description}</p>
 
                   {selectedProject.caseStudy && (
-                    <div className="mt-5 space-y-3 rounded-xl border border-white/5 bg-white/[0.02] p-4">
+                    <div className="mt-6 space-y-4 rounded-xl border border-white/5 bg-white/[0.02] p-5">
+                      <div className="flex items-center gap-2 text-brand-blue">
+                        <TrendingUp className="size-4" />
+                        <p className="text-xs font-bold uppercase tracking-widest">Case Study</p>
+                      </div>
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-red-400/80">Problem</p>
                         <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{selectedProject.caseStudy.problem}</p>
@@ -562,10 +626,18 @@ export function Projects() {
                         <p className="text-[10px] font-bold uppercase tracking-widest text-green-400/80">Result</p>
                         <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{selectedProject.caseStudy.result}</p>
                       </div>
+                      <div className="grid grid-cols-3 gap-3 pt-2">
+                        {selectedProject.caseStudy.metrics.map((m) => (
+                          <div key={m.label} className="rounded-lg border border-white/5 bg-white/[0.03] p-3 text-center">
+                            <p className="text-lg font-bold gradient-text">{m.value}</p>
+                            <p className="text-[10px] text-muted-foreground">{m.label}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="mt-5 flex flex-wrap gap-1.5">
                     {selectedProject.features.map((f) => (
                       <span
                         key={f}
@@ -619,7 +691,6 @@ export function Projects() {
           )}
         </AnimatePresence>
 
-
         {/* Project Filter */}
         <ProjectFilter activeFilter={activeFilter} onFilterChange={setActiveFilter} />
 
@@ -646,82 +717,105 @@ export function Projects() {
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           {filteredProjects.map((project, i) => (
             <Reveal key={project.id} delay={i * 0.08}>
-              <article
-                className="glass group flex h-full flex-col overflow-hidden rounded-3xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10"
-                onClick={() => { setSelectedProject(project); setIsProjectModalOpen(true); }}
+              <TiltCard
+                className="glass group flex h-full flex-col overflow-hidden rounded-3xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-brand-blue/10"
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  {/* Zoom overlay */}
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <Search className="size-8 text-white/90 drop-shadow-lg" />
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="flex items-center gap-2">
-                    {project.icon && (
-                      <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
-                        <project.icon className="size-4" />
+                <div
+                  onClick={() => { setSelectedProject(project); setIsProjectModalOpen(true); }}
+                  className="flex h-full flex-col"
+                >
+                  <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
+                    <Image
+                      src={project.image}
+                      alt={project.imageAlt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {/* Zoom overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      <div className="rounded-full bg-white/10 p-3 backdrop-blur-sm">
+                        <Search className="size-6 text-white" />
                       </div>
-                    )}
-                    <h3 className="font-heading text-xl font-bold">{project.title}</h3>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {project.features.map((f) => (
-                      <span
-                        key={f}
-                        className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
-                      >
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto pt-5">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.techStack.map((t) => (
-                        <TechBadge key={t} label={t} />
+                    </div>
+                    {/* Tech badges overlay */}
+                    <div className="absolute bottom-3 left-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {project.techStack.slice(0, 3).map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full bg-black/40 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
+                        >
+                          {t}
+                        </span>
                       ))}
                     </div>
-                    <p className="mt-3 text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Role:</span>{' '}
-                      {project.role}
-                    </p>
-                    {(project.githubUrl || project.liveUrl) && (
-                      <div className="mt-4 flex flex-wrap gap-3">
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
-                          >
-                            <GithubIcon className="size-4" />
-                            View on GitHub
-                          </a>
-                        )}
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
-                          >
-                            <ExternalLink className="size-4" />
-                            Live Website
-                          </a>
-                        )}
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="flex items-center gap-2">
+                      {project.icon && (
+                        <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
+                          <project.icon className="size-4" />
+                        </div>
+                      )}
+                      <h3 className="font-heading text-xl font-bold">{project.title}</h3>
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {project.features.slice(0, 6).map((f) => (
+                        <span
+                          key={f}
+                          className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-foreground/90"
+                        >
+                          {f}
+                        </span>
+                      ))}
+                      {project.features.length > 6 && (
+                        <span className="rounded-md border border-border bg-secondary/50 px-2 py-0.5 text-[11px] text-muted-foreground">
+                          +{project.features.length - 6} more
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-auto pt-5">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.techStack.map((t) => (
+                          <TechBadge key={t} label={t} />
+                        ))}
                       </div>
-                    )}
+                      <p className="mt-3 text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground">Role:</span>{' '}
+                        {project.role}
+                      </p>
+                      {(project.githubUrl || project.liveUrl) && (
+                        <div className="mt-4 flex flex-wrap gap-3">
+                          {project.githubUrl && (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                            >
+                              <GithubIcon className="size-4" />
+                              View on GitHub
+                            </a>
+                          )}
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                            >
+                              <ExternalLink className="size-4" />
+                              Live Website
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </article>
+              </TiltCard>
             </Reveal>
           ))}
         </div>
