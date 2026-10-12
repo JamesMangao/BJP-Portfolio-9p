@@ -1,6 +1,5 @@
 import { ArrowRight, Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
-import { ProjectFilter } from '@/components/sections/project-filter'
 import { ResumeViewer } from '@/components/resume-viewer'
 import { CopyEmail } from '@/components/copy-email'
 import { AnimatedCounter } from '@/components/animated-counter'

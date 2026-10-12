@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -13,12 +13,12 @@ import {
   Search,
   ShoppingBag,
   TrendingUp,
-  Zap,
-  Award,
+  Maximize2,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
 import { ProjectFilter } from '@/components/sections/project-filter'
+import { SpotlightCard } from '@/components/spotlight-card'
 import { cn } from '@/lib/utils'
 
 const displayFeatures = [
@@ -250,34 +250,49 @@ function TechBadge({ label }: { label: string }) {
   )
 }
 
-const filterCategories = ['All', 'Laravel', 'React', 'Rust', 'Flutter', '.NET']
-
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const [transform, setTransform] = useState('')
-  const ref = useRef<HTMLDivElement>(null)
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width
-    const y = (e.clientY - rect.top) / rect.height
-    setTransform(`perspective(1000px) rotateX(${(y - 0.5) * -8}deg) rotateY(${(x - 0.5) * 8}deg) scale(1.02)`)
-  }
-
-  const handleMouseLeave = () => {
-    setTransform('perspective(1000px) rotateX(0) rotateY(0) scale(1)')
-  }
-
+function LifeVaultTile({
+  card,
+  active,
+  onSelect,
+}: {
+  card: LifeVaultCard
+  active: boolean
+  onSelect: () => void
+}) {
   return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={className}
-      style={{ transform, transition: 'transform 0.15s ease-out' }}
+    <button
+      type="button"
+      onClick={onSelect}
+      data-cursor-hover
+      aria-label={`Preview ${card.title}`}
+      className={cn(
+        'group relative h-40 w-full overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-2xl hover:shadow-blue-500/10 sm:h-48',
+        active && 'border-brand-blue/60 ring-1 ring-brand-blue/60',
+      )}
     >
-      {children}
-    </div>
+      <Image
+        src={card.image}
+        alt={`${card.title} interface preview`}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="object-cover opacity-60 transition-all duration-500 group-hover:scale-110 group-hover:opacity-90"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.18),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-4">
+        <div className="min-w-0">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400/70">
+            {card.number}
+          </span>
+          <h4 className="mt-0.5 truncate text-base font-semibold tracking-wide text-white transition-colors group-hover:text-blue-300 sm:text-lg">
+            {card.title}
+          </h4>
+        </div>
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 opacity-0 transition-all duration-300 group-hover:scale-105 group-hover:border-blue-400/40 group-hover:bg-blue-500/20 group-hover:text-white group-hover:opacity-100">
+          <Maximize2 className="size-3.5" />
+        </span>
+      </div>
+    </button>
   )
 }
 
@@ -323,14 +338,14 @@ export function Projects() {
 
         {/* Featured: LifeVault */}
         <Reveal>
-          <article className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950/40 p-6 sm:p-8 lg:p-12 shadow-2xl">
+          <article className="animated-border relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-2xl sm:p-8 lg:p-12">
             {/* Ambient glows inside container */}
-            <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
-            <div className="absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-purple-600/10 blur-[100px] pointer-events-none" />
+            <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-blue-600/10 blur-[100px]" />
+            <div className="pointer-events-none absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-purple-600/10 blur-[100px]" />
 
-            <div className="relative z-10 grid gap-8 lg:grid-cols-12 items-center">
+            <div className="relative z-10 grid items-center gap-8 lg:grid-cols-12">
               {/* Left Column: LifeVault Details */}
-              <div className="lg:col-span-5 flex flex-col">
+              <div className="flex flex-col lg:col-span-5">
                 <div>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]">
                     <Sparkles className="size-3" />
@@ -338,7 +353,7 @@ export function Projects() {
                   </span>
                 </div>
 
-                <h3 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl text-white">
+                <h3 className="mt-4 font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   LifeVault
                 </h3>
 
@@ -370,7 +385,7 @@ export function Projects() {
                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                       Stack
                     </p>
-                    <p className="mt-1 text-xs sm:text-sm font-medium text-white/90 leading-relaxed">
+                    <p className="mt-1 text-xs font-medium leading-relaxed text-white/90 sm:text-sm">
                       Laravel 12 &middot; Blade &middot; Firebase (Authentication, Firestore) &middot; Tailwind CSS &middot; Groq / Cerebras / OpenRouter
                     </p>
                   </div>
@@ -378,7 +393,7 @@ export function Projects() {
                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                       Role
                     </p>
-                    <p className="mt-1 text-xs sm:text-sm font-medium text-white/90 leading-relaxed">
+                    <p className="mt-1 text-xs font-medium leading-relaxed text-white/90 sm:text-sm">
                       Lead Developer (Team of 3) &middot; Academic Finals Project
                     </p>
                   </div>
@@ -390,7 +405,7 @@ export function Projects() {
                     href="https://github.com/JamesMangao/LifeVault"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-blue-500/30"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 text-xs font-semibold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-blue-500/30 sm:text-sm"
                   >
                     <ExternalLink className="size-4" />
                     View on GitHub
@@ -399,7 +414,7 @@ export function Projects() {
                     href="https://lifevault-t8jq.onrender.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/10 hover:border-white/20"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:bg-white/10 sm:text-sm"
                   >
                     <ExternalLink className="size-4" />
                     Live Website
@@ -409,58 +424,28 @@ export function Projects() {
 
               {/* Right Column: 5-Card Grid layout */}
               <div className="lg:col-span-7">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
                   {/* Column 1: Cards 01, 03, 05 */}
                   <div className="flex flex-col gap-4 lg:gap-6">
                     {lifeVaultCards.filter((_, idx) => idx % 2 === 0).map((card) => (
-                      <div
+                      <LifeVaultTile
                         key={card.id}
-                        onClick={() => { setSelectedCard(card); setIsModalOpen(true); }}
-                        className={cn(
-                          "group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg",
-                          card.id === selectedCard.id && "border-brand-blue ring-1 ring-brand-blue"
-                        )}
-                      >
-                        {/* Glow effect centered in the card */}
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
-
-                        {/* Card Number */}
-                        <span className="relative z-10 text-[10px] font-mono tracking-widest text-white/30 uppercase mb-2 group-hover:text-blue-400/60 transition-colors">
-                          {card.number}
-                        </span>
-
-                        {/* Card Title */}
-                        <h4 className="relative z-10 text-base sm:text-lg font-semibold tracking-wide text-white group-hover:text-blue-400 transition-colors">
-                          {card.title}
-                        </h4>
-                      </div>
+                        card={card}
+                        active={card.id === selectedCard.id}
+                        onSelect={() => { setSelectedCard(card); setIsModalOpen(true) }}
+                      />
                     ))}
                   </div>
 
                   {/* Column 2: Cards 02, 04 (staggered down on larger screens) */}
                   <div className="flex flex-col gap-4 lg:gap-6 lg:pt-8">
                     {lifeVaultCards.filter((_, idx) => idx % 2 !== 0).map((card) => (
-                      <div
+                      <LifeVaultTile
                         key={card.id}
-                        onClick={() => { setSelectedCard(card); setIsModalOpen(true); }}
-                        className={cn(
-                          "group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 p-6 h-36 sm:h-44 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900/60 shadow-lg",
-                          card.id === selectedCard.id && "border-brand-blue ring-1 ring-brand-blue"
-                        )}
-                      >
-                        {/* Glow effect centered in the card */}
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 pointer-events-none" />
-
-                        {/* Card Number */}
-                        <span className="relative z-10 text-[10px] font-mono tracking-widest text-white/30 uppercase mb-2 group-hover:text-blue-400/60 transition-colors">
-                          {card.number}
-                        </span>
-
-                        {/* Card Title */}
-                        <h4 className="relative z-10 text-base sm:text-lg font-semibold tracking-wide text-white group-hover:text-blue-400 transition-colors">
-                          {card.title}
-                        </h4>
-                      </div>
+                        card={card}
+                        active={card.id === selectedCard.id}
+                        onSelect={() => { setSelectedCard(card); setIsModalOpen(true) }}
+                      />
                     ))}
                   </div>
                 </div>
@@ -476,15 +461,15 @@ export function Projects() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
-              onClick={() => { setSelectedCard(lifeVaultCards[0]); setIsModalOpen(false); }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md sm:p-6"
+              onClick={() => { setSelectedCard(lifeVaultCards[0]); setIsModalOpen(false) }}
             >
               <motion.div
                 initial={{ scale: 0.95, y: 15 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.95, y: 15 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="relative w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+                className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl lg:max-w-6xl xl:max-w-7xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Browser Topbar Mockup */}
@@ -497,7 +482,7 @@ export function Projects() {
                   </div>
 
                   {/* URL Bar */}
-                  <div className="hidden sm:flex items-center gap-2 rounded-md bg-slate-950/60 px-3 py-1.5 text-xs text-muted-foreground w-72 md:w-96 justify-center border border-white/5 font-mono select-none">
+                  <div className="hidden w-72 select-none items-center justify-center gap-2 rounded-md border border-white/5 bg-slate-950/60 px-3 py-1.5 font-mono text-xs text-muted-foreground sm:flex md:w-96">
                     <span className="text-white/20">https://</span>
                     <span className="text-white/60">lifevault.app/</span>
                     <span className="text-blue-400">{selectedCard.id}</span>
@@ -507,15 +492,15 @@ export function Projects() {
                   <button
                     type="button"
                     aria-label="Close dialog"
-                    onClick={() => { setSelectedCard(lifeVaultCards[0]); setIsModalOpen(false); }}
-                    className="rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
+                    onClick={() => { setSelectedCard(lifeVaultCards[0]); setIsModalOpen(false) }}
+                    className="rounded-lg p-1 text-muted-foreground transition-all hover:bg-white/5 hover:text-white"
                   >
                     <X className="size-4" />
                   </button>
                 </div>
 
                 {/* Modal Content Frame */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950 flex items-center justify-center p-1 sm:p-2">
+                <div className="relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden bg-slate-950 p-1 sm:p-2">
                   {!imageErrors[selectedCard.id] ? (
                     <Image
                       src={selectedCard.image}
@@ -530,23 +515,23 @@ export function Projects() {
                     />
                   ) : (
                     /* Fallback Setup Screen when image does not exist yet */
-                    <div className="relative w-full h-full flex flex-col items-center justify-center text-center p-6 bg-grid">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.06),transparent_60%)] pointer-events-none" />
+                    <div className="bg-grid relative flex h-full w-full flex-col items-center justify-center p-6 text-center">
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.06),transparent_60%)]" />
 
-                      <div className="relative z-10 max-w-md flex flex-col items-center">
+                      <div className="relative z-10 flex max-w-md flex-col items-center">
                         <div className="mb-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4 text-blue-400 shadow-inner">
                           <Upload className="size-8 animate-pulse" />
                         </div>
-                        <h4 className="text-lg font-bold text-white tracking-wide">
+                        <h4 className="text-lg font-bold tracking-wide text-white">
                           {selectedCard.title} Preview Pending
                         </h4>
-                        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                           {selectedCard.description}
                         </p>
-                        <div className="mt-6 rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-4 py-3 text-xs text-yellow-200/90 font-mono text-left w-full">
-                          <p className="text-yellow-400 font-semibold mb-1">&#x26A0;&#xFE0F; Setup Required:</p>
+                        <div className="mt-6 w-full rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-4 py-3 text-left font-mono text-xs text-yellow-200/90">
+                          <p className="mb-1 font-semibold text-yellow-400">&#x26A0;&#xFE0F; Setup Required:</p>
                           <p>Place your screenshot file at:</p>
-                          <p className="mt-1 text-white select-all bg-black/40 px-2 py-1 rounded border border-white/5 break-all">
+                          <p className="mt-1 select-all break-all rounded border border-white/5 bg-black/40 px-2 py-1 text-white">
                             public/projects/lifevault-{selectedCard.id}.png
                           </p>
                         </div>
@@ -566,7 +551,7 @@ export function Projects() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md sm:p-6"
               onClick={() => setIsProjectModalOpen(false)}
             >
               <motion.div
@@ -574,19 +559,21 @@ export function Projects() {
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.95, y: 15 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+                className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
-                <button
-                  type="button"
-                  aria-label="Close project preview"
-                  onClick={() => setIsProjectModalOpen(false)}
-                  className="absolute right-4 top-4 z-20 rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
-                >
-                  <X className="size-5" />
-                </button>
+                <div className="sticky top-0 z-20 flex items-start justify-end bg-gradient-to-b from-[#070b19] via-[#070b19]/80 to-transparent p-4">
+                  <button
+                    type="button"
+                    aria-label="Close project preview"
+                    onClick={() => setIsProjectModalOpen(false)}
+                    className="rounded-lg border border-white/10 bg-slate-900/70 p-1.5 text-muted-foreground backdrop-blur transition-all hover:bg-white/5 hover:text-white"
+                  >
+                    <X className="size-5" />
+                  </button>
+                </div>
 
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <div className="relative -mt-16 aspect-[16/9] w-full overflow-hidden">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.imageAlt}
@@ -595,9 +582,10 @@ export function Projects() {
                     className="object-cover"
                     priority
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b19] via-transparent to-transparent" />
                 </div>
 
-                <div className="p-6 sm:p-8">
+                <div className="p-6 pt-2 sm:p-8 sm:pt-4">
                   <div className="flex items-center gap-2">
                     {selectedProject.icon && (
                       <div className="rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-2 text-brand-blue">
@@ -629,7 +617,7 @@ export function Projects() {
                       <div className="grid grid-cols-3 gap-3 pt-2">
                         {selectedProject.caseStudy.metrics.map((m) => (
                           <div key={m.label} className="rounded-lg border border-white/5 bg-white/[0.03] p-3 text-center">
-                            <p className="text-lg font-bold gradient-text">{m.value}</p>
+                            <p className="gradient-text text-lg font-bold">{m.value}</p>
                             <p className="text-[10px] text-muted-foreground">{m.label}</p>
                           </div>
                         ))}
@@ -665,7 +653,7 @@ export function Projects() {
                             href={selectedProject.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-secondary/80"
                           >
                             <GithubIcon className="size-4" />
                             View on GitHub
@@ -676,7 +664,7 @@ export function Projects() {
                             href={selectedProject.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-secondary/80"
                           >
                             <ExternalLink className="size-4" />
                             Live Website
@@ -698,9 +686,9 @@ export function Projects() {
         {isLoading ? (
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             {[1, 2].map((i) => (
-              <div key={i} className="glass animate-pulse rounded-3xl overflow-hidden">
+              <div key={i} className="glass animate-pulse overflow-hidden rounded-3xl">
                 <div className="aspect-[16/9] bg-secondary/40" />
-                <div className="p-6 space-y-3">
+                <div className="space-y-3 p-6">
                   <div className="h-6 w-3/4 rounded bg-secondary/40" />
                   <div className="h-4 w-full rounded bg-secondary/40" />
                   <div className="h-4 w-5/6 rounded bg-secondary/40" />
@@ -716,12 +704,14 @@ export function Projects() {
         /* Secondary projects */
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           {filteredProjects.map((project, i) => (
-            <Reveal key={project.id} delay={i * 0.08}>
-              <TiltCard
-                className="glass group flex h-full flex-col overflow-hidden rounded-3xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-brand-blue/10"
+            <Reveal key={project.id} delay={i * 0.08} className="h-full">
+              <SpotlightCard
+                tilt={false}
+                className="glass group flex h-full cursor-pointer flex-col overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10"
               >
                 <div
-                  onClick={() => { setSelectedProject(project); setIsProjectModalOpen(true); }}
+                  onClick={() => { setSelectedProject(project); setIsProjectModalOpen(true) }}
+                  data-cursor-hover
                   className="flex h-full flex-col"
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
@@ -733,14 +723,14 @@ export function Projects() {
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     {/* Zoom overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <div className="rounded-full bg-white/10 p-3 backdrop-blur-sm">
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <div className="rounded-full border border-white/15 bg-white/10 p-3 backdrop-blur-sm">
                         <Search className="size-6 text-white" />
                       </div>
                     </div>
                     {/* Tech badges overlay */}
-                    <div className="absolute bottom-3 left-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-3 left-3 flex gap-1.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       {project.techStack.slice(0, 3).map((t) => (
                         <span
                           key={t}
@@ -793,7 +783,7 @@ export function Projects() {
                               href={project.githubUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-secondary/80"
                             >
                               <GithubIcon className="size-4" />
                               View on GitHub
@@ -804,7 +794,7 @@ export function Projects() {
                               href={project.liveUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary/80 hover:scale-[1.02]"
+                              className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-4 py-2 text-xs font-semibold text-foreground transition-all duration-300 hover:scale-[1.02] hover:bg-secondary/80"
                             >
                               <ExternalLink className="size-4" />
                               Live Website
@@ -815,7 +805,7 @@ export function Projects() {
                     </div>
                   </div>
                 </div>
-              </TiltCard>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>

@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal, SectionHeading } from '@/components/reveal'
-import { Clock, ArrowRight, X, Calendar, Tag } from 'lucide-react'
+import { SpotlightCard } from '@/components/spotlight-card'
+import { Clock, ArrowRight, X, Calendar, Tag, BookOpen, Share2, Check } from 'lucide-react'
 
 const blogPosts = [
   {
@@ -60,6 +61,7 @@ export function Blog() {
   const [selectedPost, setSelectedPost] = useState<typeof blogPosts[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     if (!isModalOpen) return
@@ -77,6 +79,33 @@ export function Blog() {
     return () => modal?.removeEventListener('scroll', handleScroll)
   }, [isModalOpen])
 
+  useEffect(() => {
+    if (!isModalOpen) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsModalOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isModalOpen])
+
+  function openPost(post: typeof blogPosts[0]) {
+    setCopied(false)
+    setScrollProgress(0)
+    setSelectedPost(post)
+    setIsModalOpen(true)
+  }
+
+  async function sharePost() {
+    if (!selectedPost) return
+    try {
+      await navigator.clipboard.writeText(`${window.location.origin}/#blog`)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }
+
   return (
     <section id="blog" className="relative px-4 py-24">
       <div className="mx-auto max-w-6xl">
@@ -88,50 +117,56 @@ export function Blog() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post, i) => (
-            <Reveal key={post.id} delay={i * 0.1}>
-              <article
-                className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10 cursor-pointer"
-                onClick={() => { setSelectedPost(post); setIsModalOpen(true) }}
+            <Reveal key={post.id} delay={i * 0.1} className="h-full">
+              <SpotlightCard
+                tilt={false}
+                className="glass group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-blue/10"
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-3 left-3 flex gap-2">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
-                      >
-                        {tag}
+                <div
+                  onClick={() => openPost(post)}
+                  data-cursor-hover
+                  className="flex h-full flex-col"
+                >
+                  <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-3 left-3 flex gap-2">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="size-3" />
+                        {post.date}
                       </span>
-                    ))}
+                      <span>·</span>
+                      <span>{post.readTime}</span>
+                    </div>
+                    <h3 className="mt-3 font-heading text-lg font-bold leading-snug text-foreground transition-colors group-hover:text-brand-blue">
+                      {post.title}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {post.excerpt}
+                    </p>
+                    <div className="mt-4 flex items-center gap-2 text-sm font-medium text-brand-blue">
+                      Read more
+                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="size-3" />
-                      {post.date}
-                    </span>
-                    <span>·</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h3 className="mt-3 font-heading text-lg font-bold leading-snug text-foreground group-hover:text-brand-blue transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground flex-1">
-                    {post.excerpt}
-                  </p>
-                  <div className="mt-4 flex items-center gap-2 text-sm font-medium text-brand-blue">
-                    Read more
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </article>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
@@ -144,7 +179,7 @@ export function Blog() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md sm:p-6"
             onClick={() => setIsModalOpen(false)}
           >
             <motion.div
@@ -152,25 +187,16 @@ export function Blog() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
+              className="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-[#070b19] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Reading Progress Bar */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-30">
+              <div className="absolute left-0 right-0 top-0 z-30 h-1 bg-white/5">
                 <motion.div
                   className="h-full bg-gradient-to-r from-brand-blue to-brand-purple"
                   style={{ width: `${scrollProgress}%` }}
                 />
               </div>
-
-              <button
-                type="button"
-                aria-label="Close blog post"
-                onClick={() => setIsModalOpen(false)}
-                className="absolute right-4 top-4 z-20 rounded-lg p-1 text-muted-foreground hover:bg-white/5 hover:text-white transition-all"
-              >
-                <X className="size-5" />
-              </button>
 
               <div id="blog-modal-content" className="max-h-[90vh] overflow-y-auto">
                 <div className="relative aspect-[16/7] w-full overflow-hidden">
@@ -179,24 +205,48 @@ export function Blog() {
                     alt={selectedPost.title}
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b19] via-[#070b19]/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b19] via-[#070b19]/55 to-[#070b19]/10" />
+
+                  {/* Actions */}
+                  <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={sharePost}
+                      aria-label="Copy link to post"
+                      className="rounded-lg border border-white/10 bg-slate-900/70 p-1.5 text-muted-foreground backdrop-blur transition-all hover:bg-white/10 hover:text-white"
+                    >
+                      {copied ? <Check className="size-4 text-green-400" /> : <Share2 className="size-4" />}
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Close blog post"
+                      onClick={() => setIsModalOpen(false)}
+                      className="rounded-lg border border-white/10 bg-slate-900/70 p-1.5 text-muted-foreground backdrop-blur transition-all hover:bg-white/10 hover:text-white"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </div>
+
                   <div className="absolute bottom-4 left-5 right-5">
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-3 text-xs text-white/70">
                       <span className="inline-flex items-center gap-1">
                         <Calendar className="size-3" />
                         {selectedPost.date}
                       </span>
                       <span>·</span>
-                      <span>{selectedPost.readTime}</span>
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="size-3" />
+                        {selectedPost.readTime}
+                      </span>
                     </div>
-                    <h2 className="mt-2 font-heading text-xl font-bold text-white sm:text-2xl">
+                    <h2 className="mt-2 text-balance font-heading text-xl font-bold text-white sm:text-2xl">
                       {selectedPost.title}
                     </h2>
                   </div>
                 </div>
 
                 <div className="p-6 sm:p-8">
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {selectedPost.tags.map((tag) => (
                       <span
                         key={tag}
@@ -206,13 +256,34 @@ export function Blog() {
                         {tag}
                       </span>
                     ))}
+                    <span className="ml-auto inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <BookOpen className="size-3.5" />
+                      {selectedPost.content.length} sections
+                    </span>
                   </div>
-                  <div className="mt-6 space-y-4">
+
+                  <div className="mt-7 space-y-5">
                     {selectedPost.content.map((paragraph, i) => (
-                      <p key={i} className="text-sm leading-relaxed text-muted-foreground">
+                      <p
+                        key={i}
+                        className={
+                          i === 0
+                            ? 'text-balance text-base leading-relaxed text-foreground/90'
+                            : 'text-sm leading-relaxed text-muted-foreground'
+                        }
+                      >
                         {paragraph}
                       </p>
                     ))}
+                  </div>
+
+                  <div className="mt-8 border-t border-white/5 pt-5">
+                    <p className="text-xs text-muted-foreground">
+                      Written by{' '}
+                      <span className="font-medium text-foreground">
+                        Bienvinido James Publico
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
