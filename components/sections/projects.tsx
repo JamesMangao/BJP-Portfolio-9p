@@ -95,6 +95,11 @@ type SecondaryProject = {
   githubUrl?: string
   liveUrl?: string
   icon?: React.ComponentType<{ className?: string }>
+  caseStudy?: {
+    problem: string
+    solution: string
+    result: string
+  }
 }
 
 const secondaryProjects: SecondaryProject[] = [
@@ -166,6 +171,11 @@ const secondaryProjects: SecondaryProject[] = [
     role: 'Solo Developer',
     githubUrl: 'https://github.com/JamesMangao/PCFixAI',
     icon: Monitor,
+    caseStudy: {
+      problem: 'Windows users lack a single tool that can diagnose issues, fix them safely, and explain what went wrong — most tools are either too technical or too limited.',
+      solution: 'Built a Tauri 2 desktop app with a Rust backend for real system diagnostics via Win32 API, parallel scans for speed, and an AI chat (Ollama) that explains fixes in plain language. Auto-fix agent creates backups before making changes.',
+      result: 'v1.5.1 shipped with 40+ tools, 60% faster scans, virus scanner integration, and 20+ stability patches. Users can diagnose, fix, and learn about their system in one place.',
+    },
   },
   {
     id: 'stardom',
@@ -193,6 +203,11 @@ const secondaryProjects: SecondaryProject[] = [
     role: 'Full-Stack Developer',
     githubUrl: 'https://github.com/JamesMangao/STAR-DOM',
     icon: ShoppingBag,
+    caseStudy: {
+      problem: 'Small artisan businesses need an online store but can\'t afford complex e-commerce platforms. They also need to handle custom commissions, not just product sales.',
+      solution: 'Built a 33-page e-commerce platform with a unique two-step payment flow (order first, pay after shipping quote), a 5-step commission pipeline for custom work, and a merchant studio that gives the owner full control.',
+      result: 'The platform handles everything from product sales to custom artisan commissions, with BIR-compliant receipts and a complete order management system — all from a single ASP.NET Web Forms app.',
+    },
   },
 ]
 
@@ -532,6 +547,23 @@ export function Projects() {
                     <h3 className="font-heading text-xl font-bold text-white">{selectedProject.title}</h3>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{selectedProject.description}</p>
+
+                  {selectedProject.caseStudy && (
+                    <div className="mt-5 space-y-3 rounded-xl border border-white/5 bg-white/[0.02] p-4">
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-red-400/80">Problem</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{selectedProject.caseStudy.problem}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-blue">Solution</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{selectedProject.caseStudy.solution}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-green-400/80">Result</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{selectedProject.caseStudy.result}</p>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {selectedProject.features.map((f) => (

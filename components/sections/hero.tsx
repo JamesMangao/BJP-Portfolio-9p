@@ -1,6 +1,9 @@
-import { ArrowRight, Mail, Download } from 'lucide-react'
+import { ArrowRight, Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { ProjectFilter } from '@/components/sections/project-filter'
+import { ResumeViewer } from '@/components/resume-viewer'
+import { CopyEmail } from '@/components/copy-email'
+import { AnimatedCounter } from '@/components/animated-counter'
 
 const codeLines = [
   '$ php artisan serve',
@@ -74,17 +77,10 @@ export function Hero() {
               <Mail className="size-4" />
               Contact Me
             </a>
-            <a
-              href="/Publico-Bienvinido-James-M.-Resume.pdf"
-              download
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card/50 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur transition-colors hover:bg-card sm:w-auto"
-            >
-              <Download className="size-4" />
-              Resume
-            </a>
+            <ResumeViewer />
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-3 lg:justify-start animate-fade-in-up">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start animate-fade-in-up">
             <a
               href="https://github.com/JamesMangao"
               target="_blank"
@@ -110,20 +106,15 @@ export function Hero() {
             >
               <Mail className="size-5" />
             </a>
+            <CopyEmail />
           </div>
 
-          {/* Achievement Badges */}
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 animate-fade-in-up">
-            {achievements.map((a) => (
-              <div
-                key={a.label}
-                className="glass rounded-xl p-3 text-center transition-transform hover:scale-105"
-              >
-                <div className="text-2xl">{a.icon}</div>
-                <p className="mt-1 text-xs font-semibold text-foreground">{a.label}</p>
-                <p className="text-[10px] text-muted-foreground">{a.sub}</p>
-              </div>
-            ))}
+          {/* Animated Stats */}
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 animate-fade-in-up">
+            <AnimatedCounter end={5} suffix="+" label="Full-Stack Apps" />
+            <AnimatedCounter end={500} suffix="+" label="OJT Hours" />
+            <AnimatedCounter end={6} label="Certifications" />
+            <AnimatedCounter end={33} label="STAR-DOM Pages" />
           </div>
         </div>
 

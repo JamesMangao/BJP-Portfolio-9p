@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import { Reveal, SectionHeading } from '@/components/reveal'
 import { Mail, Phone, ArrowUpRight, Send } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
+import { QRCode } from '@/components/qr-code'
+import { CopyEmail } from '@/components/copy-email'
 
 const contacts = [
   {
@@ -61,7 +63,7 @@ export function Contact() {
             <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-brand-purple/20 blur-3xl" />
             <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-brand-blue/20 blur-3xl" />
 
-            <div className="grid gap-8 lg:grid-cols-2">
+            <div className="grid gap-8 lg:grid-cols-3">
               <div className="space-y-4">
                 {contacts.map((c, i) => (
                   <Reveal key={c.label} delay={i * 0.08}>
@@ -91,6 +93,13 @@ export function Contact() {
               </div>
 
               <Reveal delay={0.15}>
+                <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-card/60 p-6">
+                  <QRCode />
+                  <CopyEmail />
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.2}>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-foreground">Name</label>
