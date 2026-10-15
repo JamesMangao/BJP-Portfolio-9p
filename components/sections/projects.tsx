@@ -89,6 +89,7 @@ type SecondaryProject = {
   description: string
   image: string
   imageAlt: string
+  screenshotPaths?: string[]
   features: string[]
   techStack: string[]
   role: string
@@ -209,6 +210,7 @@ const secondaryProjects: SecondaryProject[] = [
     description: 'Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreSQL database, GCash/GOtyme e-wallet payments with two-step verification, J&T Express shipping integration, commission pipeline for custom artisan work, and a complete merchant studio dashboard. Features CSRF protection, role-based access, and BIR-style receipts.',
     image: '/projects/STARDOM.png',
     imageAlt: 'STAR-DOM artisan marketplace',
+    screenshotPaths: ['/projects/01-home.png', '/projects/02-marketplace.png', '/projects/03-catalog.png', '/projects/04-product.png', '/projects/05-popup-locations.png', '/projects/06-signin.png', '/projects/07-dashboard.png', '/projects/08-sales-reports.png', '/projects/09-products.png', '/projects/10-events.png'],
     features: [
       'Online Marketplace (33 Pages)',
       'GCash / GOtyme E-Wallet Payments',
