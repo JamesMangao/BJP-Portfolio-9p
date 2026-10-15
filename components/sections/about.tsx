@@ -26,6 +26,13 @@ const highlights = [
   },
 ]
 
+const stats = [
+  { value: '5+', label: 'Years Learning' },
+  { value: '10+', label: 'Projects Built' },
+  { value: '500+', label: 'Hours IT Support' },
+  { value: '6', label: 'Certifications' },
+]
+
 export function About() {
   return (
     <section id="about" className="relative px-4 py-24">
@@ -37,18 +44,31 @@ export function About() {
 
         <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <Reveal>
-            <div className="glass space-y-5 rounded-2xl p-7 leading-relaxed text-muted-foreground sm:p-9">
+            <div className="glass space-y-6 rounded-2xl p-7 leading-relaxed text-muted-foreground sm:p-9">
               <p>
                 BS Information Technology graduate from Lyceum of San Pedro with hands-on experience in full-stack web development (Laravel, PHP, PostgreSQL), Windows desktop development (Tauri 2, Rust, React), mobile app development (Flutter/Android Studio), and IT technical support (500-hour OJT at Milestone Computers Laguna). I build real, deployed projects — from AI-powered web platforms and artisan e-commerce systems to Windows desktop diagnostic tools with a Rust backend. Certified by Cisco Networking Academy in IT Customer Support Basics and Computer Hardware Basics (July 2026). Open to IT Tech Support, Junior Developer, and Desktop Support roles.
               </p>
+
+              <div className="grid grid-cols-2 gap-4 pt-2 sm:grid-cols-4">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <p className="text-2xl font-bold text-brand-blue sm:text-3xl">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
 
           <div className="grid gap-4">
             {highlights.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.1}>
-                <div className="glass group flex items-start gap-4 rounded-2xl p-5 transition-colors hover:border-brand-blue/40">
-                  <div className="rounded-xl bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-3 text-brand-blue">
+                <div className="glass group flex items-start gap-4 rounded-2xl p-5 transition-all hover:border-brand-blue/40 hover:shadow-lg hover:shadow-brand-blue/5">
+                  <div className="rounded-xl bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 p-3 text-brand-blue transition-transform group-hover:scale-110">
                     <item.icon className="size-5" />
                   </div>
                   <div>

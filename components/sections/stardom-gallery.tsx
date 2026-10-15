@@ -44,16 +44,22 @@ export function StardomGallery() {
           {screenshotPaths.map((path, index) => (
             <SpotlightCard
               key={index}
-              className="border-border/60 bg-slate-950/80"
+              className="border-border/60 bg-slate-950/80 overflow-hidden"
               tilt={false}
             >
-              <Image
-                src={path}
-                alt={screenshotAltTexts[index]}
-                className="w-full h-48 object-cover rounded-lg transition-opacity duration-300 hover:opacity-90"
-                loading="lazy"
-                fill
-              />
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src={path}
+                  alt={screenshotAltTexts[index]}
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  loading="lazy"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm font-medium text-muted-foreground">
+                {screenshotAltTexts[index]}
+              </p>
             </SpotlightCard>
           ))}
         </div>
@@ -61,14 +67,15 @@ export function StardomGallery() {
         {/* Active slide indicator */}
         <div className="mt-8 flex justify-center gap-2">
           {screenshotPaths.map((_, i) => (
-            <div
+            <button
               key={i}
+              onClick={() => setActiveIndex(i)}
+              aria-label={`Go to screenshot ${i + 1}`}
               className={
                 i === activeIndex
-                  ? 'w-8 h-8 rounded-full border-brand-blue bg-brand-blue'
-                  : 'w-8 h-8 rounded-full border-white/20 bg-transparent transition-colors cursor-pointer hover:border-brand-blue/50'
+                  ? 'w-2.5 h-2.5 rounded-full bg-brand-blue transition-all'
+                  : 'w-2.5 h-2.5 rounded-full bg-white/20 transition-all cursor-pointer hover:bg-white/40'
               }
-              onClick={() => setActiveIndex(i)}
             />
           ))}
         </div>
