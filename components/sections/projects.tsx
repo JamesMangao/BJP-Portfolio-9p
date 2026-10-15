@@ -306,6 +306,7 @@ export function Projects() {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
   const [activeFilter, setActiveFilter] = useState('All')
   const [isLoading, setIsLoading] = useState(true)
+  const [activeScreenshot, setActiveScreenshot] = useState(0)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -627,6 +628,73 @@ export function Projects() {
                     </div>
                   )}
 
+                  {selectedProject.screenshotPaths && (
+                    <div className="mt-6">
+                      <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-white/40">
+                        Screenshots
+                      </p>
+                      <div className="relative overflow-hidden rounded-xl border border-white/10">
+                        <div className="relative aspect-[16/9] w-full">
+                          <Image
+                            src={selectedProject.screenshotPaths[activeScreenshot]}
+                            alt={`STAR-DOM screenshot ${activeScreenshot + 1}`}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 80vw"
+                            className="object-cover"
+                            priority
+                          />
+                        </div>
+                        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent p-3">
+                          <button
+                            type="button"
+                            aria-label="Previous screenshot"
+                            onClick={() => setActiveScreenshot((prev) => (prev === 0 ? selectedProject.screenshotPaths!.length - 1 : prev - 1))}
+                            className="rounded-full bg-white/10 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                          >
+                            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
+                          </button>
+                          <span className="text-xs font-medium text-white/80">
+                            {activeScreenshot + 1} / {selectedProject.screenshotPaths.length}
+                          </span>
+                          <button
+                            type="button"
+                            aria-label="Next screenshot"
+                            onClick={() => setActiveScreenshot((prev) => (prev === selectedProject.screenshotPaths!.length - 1 ? 0 : prev + 1))}
+                            className="rounded-full bg-white/10 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                          >
+                            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
+                        {selectedProject.screenshotPaths.map((path, i) => (
+                          <button
+                            key={path}
+                            type="button"
+                            onClick={() => setActiveScreenshot(i)}
+                            className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                              i === activeScreenshot
+                                ? 'border-brand-blue opacity-100'
+                                : 'border-transparent opacity-50 hover:opacity-80'
+                            }`}
+                          >
+                            <Image
+                              src={path}
+                              alt={`Thumbnail ${i + 1}`}
+                              fill
+                              sizes="96px"
+                              className="object-cover"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="mt-5 flex flex-wrap gap-1.5">
                     {selectedProject.features.map((f) => (
                       <span
@@ -778,6 +846,21 @@ export function Projects() {
                         <span className="font-medium text-foreground">Role:</span>{' '}
                         {project.role}
                       </p>
+                      {project.screenshotPaths && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setActiveScreenshot(0)
+                            setSelectedProject(project)
+                            setIsProjectModalOpen(true)
+                          }}
+                          className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1.5 text-xs font-semibold text-brand-blue transition-all hover:bg-brand-blue/20"
+                        >
+                          <Maximize2 className="size-3.5" />
+                          View {project.screenshotPaths.length} Screenshots
+                        </button>
+                      )}
                       {(project.githubUrl || project.liveUrl) && (
                         <div className="mt-4 flex flex-wrap gap-3">
                           {project.githubUrl && (
