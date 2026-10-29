@@ -71,12 +71,12 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
+  manifest: '/manifest.json',
 }
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
   themeColor: '#0f172a',
-  manifest: '/manifest.json',
 }
 
 export default function RootLayout({

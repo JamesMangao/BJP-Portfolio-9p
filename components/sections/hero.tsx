@@ -109,11 +109,12 @@ export function Hero() {
           </div>
 
           {/* Animated Stats */}
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 animate-fade-in-up">
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 animate-fade-in-up">
             <AnimatedCounter end={5} suffix="+" label="Full-Stack Apps" />
             <AnimatedCounter end={500} suffix="+" label="OJT Hours" />
             <AnimatedCounter end={6} label="Certifications" />
             <AnimatedCounter end={33} label="STAR-DOM Pages" />
+            <AnimatedCounter end={3} label="Apps in Production" />
           </div>
         </div>
 

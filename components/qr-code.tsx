@@ -1,14 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 
-export function QRCode() {
-  const [url, setUrl] = useState('')
+// The current URL only exists in the browser: the server snapshot stays empty,
+// so the server renders nothing and hydration never mismatches.
+function subscribe() {
+  return () => {}
+}
 
-  useEffect(() => {
-    setUrl(window.location.href)
-  }, [])
+function getClientUrl() {
+  return window.location.href
+}
+
+function getServerUrl() {
+  return ''
+}
+
+export function QRCode() {
+  const url = useSyncExternalStore(subscribe, getClientUrl, getServerUrl)
 
   if (!url) return null
 

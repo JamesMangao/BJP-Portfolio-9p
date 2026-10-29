@@ -12,6 +12,7 @@ import {
   Monitor,
   Search,
   ShoppingBag,
+  Store,
   TrendingUp,
   Maximize2,
 } from 'lucide-react'
@@ -45,7 +46,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     id: 'landing',
     number: '01',
     title: 'Landing',
-    image: '/projects/lifevault-landing.png',
+    image: '/projects/lifevault-landing.webp',
     description: "A beautifully crafted entry portal highlighting LifeVault's journaling tools and psychological insight generator.",
     url: 'https://github.com/JamesMangao/LifeVault',
   },
@@ -53,7 +54,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     id: 'dashboard',
     number: '02',
     title: 'Dashboard',
-    image: '/projects/lifevault-dashboard.png',
+    image: '/projects/lifevault-dashboard.webp',
     description: 'An interactive center console illustrating analytics, journal volume trends, and emotional timelines.',
     url: 'https://github.com/JamesMangao/LifeVault',
   },
@@ -61,7 +62,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     id: 'resume',
     number: '03',
     title: 'Resume Analyzer',
-    image: '/projects/lifevault-ai.png',
+    image: '/projects/lifevault-ai.webp',
     description: 'Intelligent resume analysis engine offering automated improvements, score updates, and content suggestions.',
     url: 'https://github.com/JamesMangao/LifeVault',
   },
@@ -69,7 +70,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     id: 'shadow',
     number: '04',
     title: 'Shadow Self',
-    image: '/projects/lifevault-shadow.png',
+    image: '/projects/lifevault-shadow.webp',
     description: "A cognitive processing tool translating daily logs into key patterns about the user's subconscious shadow self.",
     url: 'https://github.com/JamesMangao/LifeVault',
   },
@@ -77,7 +78,7 @@ const lifeVaultCards: LifeVaultCard[] = [
     id: 'career',
     number: '05',
     title: 'Career Advisor',
-    image: '/projects/lifevault-career.png',
+    image: '/projects/lifevault-career.webp',
     description: 'Holistic career path simulator that reviews profiles and guides users through custom educational milestones.',
     url: 'https://github.com/JamesMangao/LifeVault',
   },
@@ -109,7 +110,7 @@ const secondaryProjects: SecondaryProject[] = [
     id: 'parish',
     title: 'Parish Website',
     description: 'Complete parish management system with 27 controllers, 15 Eloquent models, role-based access control (Super Admin/Staff/SocCom), AI chatbot, mass scheduling, donation tracking, and inquiry management — serving a real parish community.',
-    image: '/projects/parish-website.png',
+    image: '/projects/parish-website.webp',
     imageAlt: 'Parish management website homepage',
     features: [
       'Home Page',
@@ -142,7 +143,7 @@ const secondaryProjects: SecondaryProject[] = [
     id: 'ecocycle',
     title: 'EcoCycle: Smart Recycling Reward System',
     description: 'Award-winning capstone project — Flutter mobile app with reward tracking, Laravel admin dashboard, and IoT integration with a smart recycling bin for real-time hardware-to-app data exchange. Promotes environmental awareness through gamified recycling.',
-    image: '/projects/android-app.png',
+    image: '/projects/android-app.webp',
     imageAlt: 'Android academic application mockup',
     features: [
       'Flutter Mobile App',
@@ -170,7 +171,7 @@ const secondaryProjects: SecondaryProject[] = [
     id: 'pcfixai',
     title: 'PCFixAI',
     description: 'Offline-first AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click. Rust backend using Win32 API (windows-rs) for real diagnostics, parallel diagnostic scans via tokio::join! (~60% faster), 10-tab toolkit with 40+ system tools, optional AI chat via Ollama, virus scanner with Windows Defender integration, exportable system reports, and health history tracking. Deployed at v1.5.1 with 20+ stability patches and security fixes.',
-    image: '/projects/pcfixai.png',
+    image: '/projects/pcfixai.webp',
     imageAlt: 'PCFixAI desktop application interface',
     features: [
       'One-Click Scan & Auto-Fix',
@@ -208,9 +209,9 @@ const secondaryProjects: SecondaryProject[] = [
     id: 'stardom',
     title: 'STAR-DOM',
     description: 'Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreSQL database, GCash/GOtyme e-wallet payments with two-step verification, J&T Express shipping integration, commission pipeline for custom artisan work, and a complete merchant studio dashboard. Features CSRF protection, role-based access, and BIR-style receipts.',
-    image: '/projects/STARDOM.png',
+    image: '/projects/STARDOM.webp',
     imageAlt: 'STAR-DOM artisan marketplace',
-    screenshotPaths: ['/projects/01-home.png', '/projects/02-marketplace.png', '/projects/03-catalog.png', '/projects/04-product.png', '/projects/05-popup-locations.png', '/projects/06-signin.png', '/projects/07-dashboard.png', '/projects/08-sales-reports.png', '/projects/09-products.png', '/projects/10-events.png'],
+    screenshotPaths: ['/projects/01-home.webp', '/projects/02-marketplace.webp', '/projects/03-catalog.webp', '/projects/04-product.webp', '/projects/05-popup-locations.webp', '/projects/06-signin.webp', '/projects/07-dashboard.webp', '/projects/08-sales-reports.webp', '/projects/09-products.webp', '/projects/10-events.webp'],
     features: [
       'Online Marketplace (33 Pages)',
       'GCash / GOtyme E-Wallet Payments',
@@ -239,6 +240,42 @@ const secondaryProjects: SecondaryProject[] = [
         { label: 'Pages', value: '33' },
         { label: 'Payment Steps', value: '2' },
         { label: 'Commission Steps', value: '5' },
+      ],
+    },
+  },
+  {
+    id: 'stardom-pos',
+    title: 'STAR:DOM POS',
+    description: 'Offline-first point-of-sale for the ST⭐️R:Dom × ka1ofakind artisan pop-up booth, built as an installable Flutter web PWA that runs on an iPad. Products, cart and sales live in local SQLite (Drift on WASM) so the booth keeps selling with zero network, then syncs to Supabase when Wi-Fi returns. Ships with adaptive phone/tablet/desktop layouts, 80 mm PDF receipts via AirPrint, cash count and Close Day reporting, Supabase Auth for the owner, and a release build that fails if any secret leaks into the bundle.',
+    image: '/projects/stardom-pos-desktop.webp',
+    imageAlt: 'STAR:DOM POS product grid and cart panel on desktop',
+    screenshotPaths: ['/projects/stardom-pos-desktop.webp', '/projects/stardom-pos-phone.webp'],
+    features: [
+      'Offline-First (Zero Network)',
+      'Local SQLite via Drift on WASM',
+      'Background Sync to Supabase',
+      'Sell / Orders / Products / Reports / Settings',
+      '80 mm PDF Receipts (AirPrint)',
+      'Adaptive Phone / Tablet / Desktop Layouts',
+      'Cash Count & Close Day',
+      'Barcode Scanning',
+      'Owner Sign-In (Supabase Auth)',
+      'Service Worker Offline Shell',
+      'Secret-Scanned Release Build',
+    ],
+    techStack: ['Flutter', 'Dart', 'Drift (SQLite WASM)', 'Supabase', 'Cloudflare Pages', 'PWA'],
+    role: 'Solo Developer',
+    githubUrl: 'https://github.com/JamesMangao/STAR-DOM-POS',
+    liveUrl: 'https://stardom-pos.pages.dev',
+    icon: Store,
+    caseStudy: {
+      problem: 'Pop-up booths sell at markets with unreliable Wi-Fi — cloud POS apps fail exactly when a sale needs to happen, and a booth cannot afford a cashier waiting on a spinner.',
+      solution: 'Built an offline-first Flutter web PWA: products, cart and sales are stored locally in SQLite compiled to WASM, then reconciled with Supabase whenever the booth gets signal. Receipts print as 80 mm PDFs through the iPad share sheet — no Bluetooth printer, no APK, no paid Apple developer account.',
+      result: 'Installs to the owner\'s iPad as a standalone PWA, records sales with zero network and syncs them when Wi-Fi returns, with adaptive layouts, day-close cash counts and a build pipeline that blocks secret leaks.',
+      metrics: [
+        { label: 'Tabs', value: '5' },
+        { label: 'Offline', value: '100%' },
+        { label: 'Test Suite', value: '88' },
       ],
     },
   },
@@ -634,13 +671,13 @@ export function Projects() {
                         Screenshots
                       </p>
                       <div className="relative overflow-hidden rounded-xl border border-white/10">
-                        <div className="relative aspect-[16/9] w-full">
+                        <div className="relative flex h-[min(58vh,520px)] w-full items-center justify-center bg-slate-950/80">
                           <Image
                             src={selectedProject.screenshotPaths[activeScreenshot]}
-                            alt={`STAR-DOM screenshot ${activeScreenshot + 1}`}
+                            alt={`${selectedProject.title} screenshot ${activeScreenshot + 1}`}
                             fill
                             sizes="(max-width: 1024px) 100vw, 80vw"
-                            className="object-cover"
+                            className="object-contain p-2"
                             priority
                           />
                         </div>
@@ -687,7 +724,7 @@ export function Projects() {
                               alt={`Thumbnail ${i + 1}`}
                               fill
                               sizes="96px"
-                              className="object-cover"
+                              className="object-contain bg-slate-950/80"
                             />
                           </button>
                         ))}

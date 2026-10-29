@@ -8,13 +8,29 @@ import { Clock, ArrowRight, X, Calendar, Tag, BookOpen, Share2, Check } from 'lu
 
 const blogPosts = [
   {
+    id: 'stardom-pos',
+    title: 'How I Built an Offline-First POS That Keeps Selling Without Wi-Fi',
+    excerpt: 'Building a booth point-of-sale for a real artisan pop-up: local-first SQLite compiled to WASM, background sync to Supabase, and a PWA that installs on an iPad with zero network.',
+    date: 'October 2026',
+    readTime: '7 min read',
+    tags: ['Flutter', 'PWA', 'Offline-First'],
+    image: '/projects/stardom-pos-desktop.webp',
+    content: [
+      'The brief was unforgiving: a real artisan pop-up booth needed to take payments at a weekend market, on an iPad 9th gen, where the Wi-Fi drops exactly when the queue forms. A cloud POS that shows a spinner during a rush is worse than no POS at all — so the whole app was designed local-first, with the network treated as an optional bonus rather than a requirement.',
+      'Everything the booth sells lives in SQLite compiled to WebAssembly — drift running on sqlite3.wasm with a dedicated drift worker, all served same-origin. Products, cart and sales are written locally the moment they happen, so the app can boot, show the shelf and record a sale with the network switched off. The same rule applied to assets: CanvasKit, both fonts and the SQLite engine are bundled, so nothing is fetched from a CDN at runtime.',
+      'Supabase is the source of truth rather than the live path. When the booth gets signal, the local ledger reconciles against Postgres, product images come from Supabase Storage, and the owner signs in through Supabase Auth. That split — fast local writes, eventual cloud truth — is what makes the thing usable at a market stall and still queryable afterwards for reports.',
+      'One codebase had to feel native at three sizes, so the shell switches on canvas width: a bottom bar with 5 tabs under 600 pt, a 72 px icon rail for portrait tablets, and a 250 px rail with a two-pane Sell/cart split at 900 pt and up. Everything follows the booth rules I wrote into the design system — 48 pt minimum touch targets, no hover-only affordances, 16 px input text so iOS does not zoom, and safe-area insets for the standalone PWA.',
+      'Receipts were the last hard problem. Without a Bluetooth printer or a paid Apple developer account, the 80 mm receipt is rendered as a PDF with the pdf package and handed to the iPad share sheet for AirPrint via printing. Delivery is a Cloudflare Pages upload of the built PWA, guarded by a build script that swaps in a custom service worker and exits non-zero if any secret leaks into the bundle — backed by 88 tests plus a Playwright offline-reload smoke test.',
+    ],
+  },
+  {
     id: 'pcfixai-rust',
     title: 'How I Built PCFixAI: A Rust-Powered Windows Diagnostic Tool',
     excerpt: 'Lessons from building a fully offline AI-powered desktop app with Tauri 2, Rust, and React — from parallel diagnostics to safe auto-fix agents.',
     date: 'August 2026',
     readTime: '8 min read',
     tags: ['Rust', 'Tauri', 'Desktop Dev'],
-    image: '/projects/pcfixai.png',
+    image: '/projects/pcfixai.webp',
     content: [
       'When I started PCFixAI, I wanted to build something that could genuinely help people fix their PCs without needing to be a tech expert. The goal was simple: one click, and the app diagnoses issues and offers to fix them safely.',
       'The biggest challenge was building a Rust backend that could interact with Windows system tools. Using Win32 API through windows-rs, I was able to access disk health, network diagnostics, CPU/memory stats, and startup programs — all in parallel using tokio::join! for ~60% faster scans.',
@@ -30,7 +46,7 @@ const blogPosts = [
     date: 'July 2026',
     readTime: '10 min read',
     tags: ['ASP.NET', 'VB.NET', 'PostgreSQL'],
-    image: '/projects/STARDOM.png',
+    image: '/projects/STARDOM.webp',
     content: [
       'STAR:DOM started as a school project but grew into a full-fledged e-commerce platform with 33 pages, covering everything from product browsing to commission management for custom artisan work.',
       'The biggest design challenge was the payment flow. Since J&T Express shipping fees can\u2019t be calculated until the parcel is weighed, I designed a two-step payment system: first the customer places an order (unpaid), then the studio quotes the shipping fee, and finally the customer pays via GCash or GOtyme e-wallet. This required a state machine for orders: PENDING → CONFIRMED → PAID → PROCESSING → SHIPPED → DELIVERED.',
@@ -46,7 +62,7 @@ const blogPosts = [
     date: 'June 2026',
     readTime: '6 min read',
     tags: ['Laravel', 'AI', 'REST APIs'],
-    image: '/projects/lifevault-landing.png',
+    image: '/projects/lifevault-landing.webp',
     content: [
       'LifeVault is an AI-powered journaling platform I built as the lead developer for our team\u2019s finals project. The idea was simple: write about your day, and AI helps you see patterns, improve your resume, and even understand your "shadow self."',
       'The technical challenge was integrating multiple AI providers — Groq for fast chat responses, Cerebras for longer analysis tasks, and OpenRouter for the Resume Analyzer (which uses Tesseract OCR + Poppler to extract text from PDFs). I built a routing layer that picks the best provider based on task type and response time requirements.',

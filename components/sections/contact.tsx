@@ -37,16 +37,35 @@ const contacts = [
 
 export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`)
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)
-    window.location.href = `mailto:publicojamesmangao25@gmail.com?subject=${subject}&body=${body}`
-    setStatus('sent')
-    setTimeout(() => setStatus('idle'), 3000)
+    setErrorMessage('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const payload = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        setErrorMessage(payload.error ?? 'Something went wrong. Please email me directly.')
+        setStatus('error')
+        return
+      }
+
+      setFormData({ name: '', email: '', message: '' })
+      setStatus('sent')
+      setTimeout(() => setStatus('idle'), 4000)
+    } catch {
+      setErrorMessage('Network error. Please email me directly instead.')
+      setStatus('error')
+    }
   }
 
   return (
@@ -133,18 +152,54 @@ export function Contact() {
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                      className="w-full rounded-xl border border-border bg-card/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand-blue/50 focus:outline-none focus:ring-1 focus:ring-brand-blue/50 resize-none"
+                      className="w-full resize-none rounded-xl border border-border bg-card/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-brand-blue/50 focus:outline-none focus:ring-1 focus:ring-brand-blue/50"
                       placeholder="Tell me about the opportunity..."
                     />
                   </div>
+
+                  {/* Honeypot: hidden from humans, tempting for bots */}
+                  <input
+                    type="text"
+                    name="company"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
+
                   <button
                     type="submit"
                     disabled={status === 'sending'}
                     className="glow-blue inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
                   >
                     <Send className="size-4" />
-                    {status === 'sending' ? 'Opening Email...' : status === 'sent' ? 'Email Ready!' : 'Send Message'}
+                    {status === 'sending'
+                      ? 'Sending...'
+                      : status === 'sent'
+                        ? 'Message Sent!'
+                        : status === 'error'
+                          ? 'Try Again'
+                          : 'Send Message'}
                   </button>
+
+                  {status === 'sent' && (
+                    <p className="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2.5 text-center text-xs text-green-300">
+                      Thanks — your message is on its way. I&apos;ll reply as soon as I can.
+                    </p>
+                  )}
+
+                  {status === 'error' && (
+                    <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-center text-xs text-red-300">
+                      {errorMessage}
+                    </p>
+                  )}
+
+                  <a
+                    href="mailto:publicojamesmangao25@gmail.com"
+                    className="text-center text-xs text-muted-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground"
+                  >
+                    or email me directly
+                  </a>
                 </form>
               </Reveal>
             </div>

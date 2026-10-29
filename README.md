@@ -24,6 +24,13 @@ Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreS
 - **Stack:** VB.NET, ASP.NET Web Forms, .NET Framework 4.8, PostgreSQL, Npgsql, Docker
 - **Features:** Online Marketplace, Commission Pipeline, J&T Shipping Integration, BIR-Style Receipts, Admin Console
 
+### STAR:DOM POS
+Offline-first booth point-of-sale for the ST⭐️R:Dom × ka1ofakind artisan pop-up — an installable Flutter web PWA that runs on an iPad and keeps selling with zero network.
+
+- **Stack:** Flutter, Dart, Drift (SQLite on WASM), Supabase, Cloudflare Pages
+- **Features:** Local-then-cloud sync, 5 adaptive screens, 80 mm PDF receipts (AirPrint), Cash Count & Close Day, barcode scanning, service-worker offline shell, secret-scanned builds
+- **Live:** [stardom-pos.pages.dev](https://stardom-pos.pages.dev)
+
 ### PCFixAI
 Fully offline AI-powered Windows desktop app that diagnoses and auto-repairs common PC issues in one click.
 

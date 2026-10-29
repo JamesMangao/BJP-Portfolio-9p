@@ -103,6 +103,13 @@ Three project tiers:
 - Deployed at v1.4.0 (growth from v1.3.0 to v1.4.0), August 2026
 - Link: [GitHub](https://github.com/JamesMangao/PCFixAI)
 
+**e) STAR:DOM POS** — Offline-first booth point-of-sale (real production deployment)
+- Stack: Flutter (web PWA), Dart, Drift (SQLite on WASM), Supabase (Auth, Postgres, Storage), Cloudflare Pages
+- Role: Solo Developer
+- Target device: iPad 9th gen, installed as a standalone PWA (Add to Home Screen)
+- Features: Works fully offline (products, cart and sales in local SQLite), background sync to Supabase when Wi-Fi returns, 5 tabs (Sell, Orders, Products, Reports, Settings), adaptive phone/tablet/desktop layouts, 80 mm PDF receipts via AirPrint, cash count & Close Day reporting, barcode scanning, owner sign-in, service-worker offline shell, release build with a secret-leak scan
+- Links: [GitHub](https://github.com/JamesMangao/STAR-DOM-POS), [Live](https://stardom-pos.pages.dev)
+
 ### 5. Experience (`#experience`)
 - **IT Technician Intern** @ Milestone Computers Laguna (500-hour OJT)
 - Hardware/software diagnostics, OS deployment, PC builds, end-user support
@@ -176,8 +183,11 @@ lib/
 └── utils.ts
 public/
 └── projects/
-    ├── lifevault-*.png (5 screenshots)
-    ├── parish-website.png
-    ├── android-app.png
-    └── pcfixai.png
+    ├── *.webp — all project screenshots (converted from PNG, ~79% smaller)
+    ├── lifevault-*.webp (5 screenshots)
+    ├── 01–10 star-dom gallery screenshots
+    ├── stardom-pos-desktop.webp / stardom-pos-phone.webp
+    ├── parish-website.webp
+    ├── android-app.webp
+    └── pcfixai.webp
 ```

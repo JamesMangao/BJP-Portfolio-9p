@@ -5,16 +5,16 @@ import Image from 'next/image'
 import { SpotlightCard } from '@/components/spotlight-card'
 
 const screenshotPaths = [
-  '/projects/01-home.png',
-  '/projects/02-marketplace.png',
-  '/projects/03-catalog.png',
-  '/projects/04-product.png',
-  '/projects/05-popup-locations.png',
-  '/projects/06-signin.png',
-  '/projects/07-dashboard.png',
-  '/projects/08-sales-reports.png',
-  '/projects/09-products.png',
-  '/projects/10-events.png',
+  '/projects/01-home.webp',
+  '/projects/02-marketplace.webp',
+  '/projects/03-catalog.webp',
+  '/projects/04-product.webp',
+  '/projects/05-popup-locations.webp',
+  '/projects/06-signin.webp',
+  '/projects/07-dashboard.webp',
+  '/projects/08-sales-reports.webp',
+  '/projects/09-products.webp',
+  '/projects/10-events.webp',
 ]
 
 const screenshotAltTexts = [

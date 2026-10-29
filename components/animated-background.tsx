@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 type Particle = {
   id: number
   left: number
@@ -12,22 +10,34 @@ type Particle = {
   blue: boolean
 }
 
+/**
+ * Deterministic particle field. A seeded PRNG instead of Math.random means the
+ * server and the client render identical markup — no hydration mismatch, and no
+ * setState inside an effect.
+ */
+function makeParticles(): Particle[] {
+  let seed = 0x2f6e2b1
+  const rand = () => {
+    seed = (seed + 0x6d2b79f5) | 0
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+
+  return Array.from({ length: 26 }, (_, i) => ({
+    id: i,
+    left: rand() * 100,
+    size: rand() * 5 + 2,
+    duration: rand() * 18 + 14,
+    delay: rand() * -30,
+    drift: rand() * 120 - 60,
+    blue: rand() > 0.5,
+  }))
+}
+
+const particles = makeParticles()
+
 export function AnimatedBackground() {
-  const [particles, setParticles] = useState<Particle[]>([])
-
-  useEffect(() => {
-    const next: Particle[] = Array.from({ length: 26 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      size: Math.random() * 5 + 2,
-      duration: Math.random() * 18 + 14,
-      delay: Math.random() * -30,
-      drift: Math.random() * 120 - 60,
-      blue: Math.random() > 0.5,
-    }))
-    setParticles(next)
-  }, [])
-
   return (
     <div
       aria-hidden="true"
@@ -48,14 +58,15 @@ export function AnimatedBackground() {
           className={`absolute bottom-[-10%] rounded-full ${
             p.blue ? 'bg-brand-blue/60' : 'bg-brand-purple/60'
           }`}
-          style={{
-            left: `${p.left}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            // @ts-expect-error custom prop
-            '--drift': `${p.drift}px`,
-            animation: `float-up ${p.duration}s linear ${p.delay}s infinite`,
-          }}
+          style={
+            {
+              left: `${p.left}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              '--drift': `${p.drift}px`,
+              animation: `float-up ${p.duration}s linear ${p.delay}s infinite`,
+            } as React.CSSProperties
+          }
         />
       ))}
     </div>
