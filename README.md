@@ -19,10 +19,17 @@ An AI-powered journaling platform that transforms personal journals into meaning
 - **Features:** Resume Analyzer, LifeStory Generator, Shadow Self Analyzer, Holistic Career Advisor, AI Chatbot, Authentication System, Dashboard Analytics
 
 ### STAR-DOM
-Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreSQL database, GCash/GOtyme e-wallet payments with two-step verification, and a complete merchant studio dashboard.
+Full-stack artisan e-commerce platform with 37 ASP.NET Web Forms pages over a 32-table PostgreSQL database, QR e-wallet payments on any channel the owner enables (two-step, reference-verified), and a complete merchant studio dashboard.
 
 - **Stack:** VB.NET, ASP.NET Web Forms, .NET Framework 4.8, PostgreSQL, Npgsql, Docker
-- **Features:** Online Marketplace, Commission Pipeline, J&T Shipping Integration, BIR-Style Receipts, Admin Console
+- **Features:** Online Marketplace, Commission Pipeline, J&T Quote & Tracking, Proof-Gated Delivery Sweep, BIR-Style Receipts, Admin Console
+
+### Kumpleto
+Unofficial offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — 23 documents, 9 life-event bundles and 18 agencies, with no accounts, analytics or ads.
+
+- **Stack:** Flutter, Dart, Riverpod, go_router, Drift (SQLite)
+- **Features:** Per-document checklists, life-event bundles, English + Filipino, full-text search, deep links, expiry reminders, silent data refresh
+- **Source:** [github.com/JamesMangao/kumpleto](https://github.com/JamesMangao/kumpleto)
 
 ### STAR:DOM POS
 Offline-first booth point-of-sale for the ST⭐️R:Dom × ka1ofakind artisan pop-up — an installable Flutter web PWA that runs on an iPad and keeps selling with zero network.

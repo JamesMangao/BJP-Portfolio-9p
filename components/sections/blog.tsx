@@ -20,7 +20,7 @@ const blogPosts = [
       'Everything the booth sells lives in SQLite compiled to WebAssembly — drift running on sqlite3.wasm with a dedicated drift worker, all served same-origin. Products, cart and sales are written locally the moment they happen, so the app can boot, show the shelf and record a sale with the network switched off. The same rule applied to assets: CanvasKit, both fonts and the SQLite engine are bundled, so nothing is fetched from a CDN at runtime.',
       'Supabase is the source of truth rather than the live path. When the booth gets signal, the local ledger reconciles against Postgres, product images come from Supabase Storage, and the owner signs in through Supabase Auth. That split — fast local writes, eventual cloud truth — is what makes the thing usable at a market stall and still queryable afterwards for reports.',
       'One codebase had to feel native at three sizes, so the shell switches on canvas width: a bottom bar with 5 tabs under 600 pt, a 72 px icon rail for portrait tablets, and a 250 px rail with a two-pane Sell/cart split at 900 pt and up. Everything follows the booth rules I wrote into the design system — 48 pt minimum touch targets, no hover-only affordances, 16 px input text so iOS does not zoom, and safe-area insets for the standalone PWA.',
-      'Receipts were the last hard problem. Without a Bluetooth printer or a paid Apple developer account, the 80 mm receipt is rendered as a PDF with the pdf package and handed to the iPad share sheet for AirPrint via printing. Delivery is a Cloudflare Pages upload of the built PWA, guarded by a build script that swaps in a custom service worker and exits non-zero if any secret leaks into the bundle — backed by 88 tests plus a Playwright offline-reload smoke test.',
+      'Receipts were the last hard problem. Without a Bluetooth printer or a paid Apple developer account, the 80 mm receipt is rendered as a PDF with the pdf package and handed to the iPad share sheet for AirPrint via printing. Delivery is a Cloudflare Pages upload of the built PWA, guarded by a build script that swaps in a custom service worker and exits non-zero if any secret leaks into the bundle — with a Playwright offline-reload smoke test proving the app still boots with the network off.',
     ],
   },
   {
@@ -41,14 +41,14 @@ const blogPosts = [
   },
   {
     id: 'stardom-ecommerce',
-    title: 'Building a 33-Page E-Commerce Platform with ASP.NET Web Forms',
+    title: 'Building a 37-Page E-Commerce Platform with ASP.NET Web Forms',
     excerpt: 'How I architected a full artisan marketplace with two-step payment verification, commission pipelines, and a complete merchant studio.',
     date: 'July 2026',
     readTime: '10 min read',
     tags: ['ASP.NET', 'VB.NET', 'PostgreSQL'],
     image: '/projects/STARDOM.webp',
     content: [
-      'STAR:DOM started as a school project but grew into a full-fledged e-commerce platform with 33 pages, covering everything from product browsing to commission management for custom artisan work.',
+      'STAR:DOM started as a school project but grew into a full-fledged e-commerce platform with 37 pages, covering everything from product browsing to commission management for custom artisan work.',
       'The biggest design challenge was the payment flow. Since J&T Express shipping fees can\u2019t be calculated until the parcel is weighed, I designed a two-step payment system: first the customer places an order (unpaid), then the studio quotes the shipping fee, and finally the customer pays via GCash or GOtyme e-wallet. This required a state machine for orders: PENDING → CONFIRMED → PAID → PROCESSING → SHIPPED → DELIVERED.',
       'Security was critical. I implemented CSRF protection on every form using a per-session token verified in Global.asax. Payment verification is password-gated behind the merchant dashboard, so a left-open browser session can\u2019t silently commit a customer\u2019s money.',
       'The commission pipeline was my favorite feature. Artists can set capacity limits, and the site enforces them — once an artist is at their limit, new requests are refused. The 5-step request wizard (describe → reference → sizing → budget → delivery) makes the process feel premium.',

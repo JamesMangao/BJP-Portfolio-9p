@@ -156,16 +156,32 @@ for b in [
     story.append(bullet(b))
 
 story.append(Paragraph(
-    "STAR-DOM — Artisan E-Commerce Platform (33 Pages) | github.com/JamesMangao/STAR-DOM",
+    "Kumpleto — Offline-First Philippine Document Checklists (Android) | github.com/JamesMangao/kumpleto",
+    title_style,
+))
+for b in [
+    "Solo developer: shipped an offline-first Android app (Flutter, Riverpod, go_router, Drift/SQLite) "
+    "keeping 23 government documents, 9 life-event bundles and 18 agencies fully usable with zero network.",
+    "Built per-document requirement checklists, bilingual English/Filipino content, full-text search across "
+    "requirements and fees, deep links, and expiry reminders — with no accounts, analytics or ads.",
+    "Validated every dataset entry against a schema in CI and shipped silent content refreshes from a public "
+    "JSON feed, so data updates land without a store release.",
+]:
+    story.append(bullet(b))
+
+story.append(Paragraph(
+    "STAR-DOM — Artisan E-Commerce Platform (37 Pages) | github.com/JamesMangao/STAR-DOM",
     title_style,
 ))
 story.append(bullet(
-    "Full-stack developer: built a 33-page ASP.NET Web Forms e-commerce platform with PostgreSQL, "
-    "GCash/GOtyme e-wallet payments with two-step verification, and J&amp;T Express shipping integration."
+    "Full-stack developer: built a 37-page ASP.NET Web Forms e-commerce platform over a 32-table "
+    "PostgreSQL database, with QR e-wallet payments on any channel the owner enables and two-step, "
+    "reference-verified proof of payment."
 ))
 story.append(bullet(
-    "Implemented commission pipeline for custom artisan work, merchant studio dashboard, BIR-style "
-    "receipts with VAT breakdown, and CSRF protection."
+    "Implemented a merchant studio (J&amp;T Express quoting and tracking, proof-gated delivery sweep, "
+    "password-gated refunds), a 5-step commission pipeline, BIR-style receipts with VAT breakdown, "
+    "and CSRF protection."
 ))
 
 story.append(Paragraph(

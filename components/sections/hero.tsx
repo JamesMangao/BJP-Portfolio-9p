@@ -113,7 +113,7 @@ export function Hero() {
             <AnimatedCounter end={5} suffix="+" label="Full-Stack Apps" />
             <AnimatedCounter end={500} suffix="+" label="OJT Hours" />
             <AnimatedCounter end={6} label="Certifications" />
-            <AnimatedCounter end={33} label="STAR-DOM Pages" />
+            <AnimatedCounter end={37} label="STAR-DOM Pages" />
             <AnimatedCounter end={3} label="Apps in Production" />
           </div>
         </div>

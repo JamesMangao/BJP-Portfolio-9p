@@ -15,6 +15,7 @@ import {
   Store,
   TrendingUp,
   Maximize2,
+  ClipboardCheck,
 } from 'lucide-react'
 import { GithubIcon } from '@/components/brand-icons'
 import { Reveal, SectionHeading } from '@/components/reveal'
@@ -106,6 +107,40 @@ type SecondaryProject = {
 }
 
 const secondaryProjects: SecondaryProject[] = [
+  {
+    id: 'kumpleto',
+    title: 'Kumpleto',
+    description: 'Offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — NBI clearance, PSA certificates, passport, national ID, LTO licences and permits, DTI business names, PRC licences — plus life-event bundles like Job Hunt Pack, First Passport and New Driver. Ships with 23 verified documents, 9 bundles and 18 agencies bundled as an asset, English + Filipino content, full-text search across requirements, steps and fees, per-document deep links, and expiry reminders. No accounts, no analytics, no ads — nothing leaves the device.',
+    image: '/projects/kumpleto.webp',
+    imageAlt: 'Kumpleto app icon and wordmark on the brand teal background',
+    features: [
+      'Per-Document Requirement Checklists',
+      'Life-Event Bundles with Progress',
+      '23 Documents · 9 Bundles · 18 Agencies',
+      'Works 100% Offline',
+      'English + Filipino',
+      'Search Across Requirements, Fees & Notes',
+      'Deep Links (kumpleto://doc/<id>)',
+      'Expiry Reminders (1 Month / 1 Week / 1 Day)',
+      'Silent Data Refresh from Public Feed',
+      'No Accounts, No Analytics, No Ads',
+      'TalkBack Labels & 200% Font Support',
+    ],
+    techStack: ['Flutter', 'Dart', 'Riverpod', 'go_router', 'Drift (SQLite)', 'Android'],
+    role: 'Solo Developer',
+    githubUrl: 'https://github.com/JamesMangao/kumpleto',
+    icon: ClipboardCheck,
+    caseStudy: {
+      problem: 'Preparing Philippine government documents means scattered PDFs, forum posts and word of mouth. Requirements, fees and processing times are hard to compare, easy to get wrong, and usually only available with a connection.',
+      solution: 'Built a Flutter app around an offline-first dataset: every document, requirement and agency citation is validated against a schema in CI, compiled to a single asset, and refreshed silently from a public JSON feed — so content updates ship without a store release.',
+      result: 'Version 1.0.0 ships 23 verified documents, 9 life-event bundles and 18 agencies that work on first launch with no network, no account and no tracking, in both English and Filipino.',
+      metrics: [
+        { label: 'Documents', value: '23' },
+        { label: 'Bundles', value: '9' },
+        { label: 'Offline', value: '100%' },
+      ],
+    },
+  },
   {
     id: 'parish',
     title: 'Parish Website',
@@ -208,23 +243,23 @@ const secondaryProjects: SecondaryProject[] = [
   {
     id: 'stardom',
     title: 'STAR-DOM',
-    description: 'Full-stack artisan e-commerce platform with 33 ASP.NET Web Forms pages, PostgreSQL database, GCash/GOtyme e-wallet payments with two-step verification, J&T Express shipping integration, commission pipeline for custom artisan work, and a complete merchant studio dashboard. Features CSRF protection, role-based access, and BIR-style receipts.',
+    description: 'Full-stack artisan e-commerce platform with 37 ASP.NET Web Forms pages over a 32-table PostgreSQL database. Customers pay by QR against whichever wallet the owner enables — two-step, reference-verified — while the studio quotes the real J&T Express fee, runs a 5-step commission pipeline for custom work, and manages everything from a merchant studio. Includes CSRF protection, a two-role access model, BIR-style VAT receipts, and a scheduled delivery sweep that never closes an order behind the customer\'s back.',
     image: '/projects/STARDOM.webp',
     imageAlt: 'STAR-DOM artisan marketplace',
     screenshotPaths: ['/projects/01-home.webp', '/projects/02-marketplace.webp', '/projects/03-catalog.webp', '/projects/04-product.webp', '/projects/05-popup-locations.webp', '/projects/06-signin.webp', '/projects/07-dashboard.webp', '/projects/08-sales-reports.webp', '/projects/09-products.webp', '/projects/10-events.webp'],
     features: [
-      'Online Marketplace (33 Pages)',
-      'GCash / GOtyme E-Wallet Payments',
+      'Online Marketplace (37 Pages)',
+      'QR E-Wallet Payments (Any Channel)',
       'Two-Step Payment Verification',
-      'J&T Express Shipping Integration',
+      'J&T Express Quote & Tracking',
       'Commission Pipeline (5-Step)',
       'Merchant Studio Dashboard',
       'Admin Console & Role Management',
       'BIR-Style Receipts with VAT',
       'Product Catalog & Stock Management',
-      'Order Tracking & Status Line',
+      'Proof-Gated Delivery Sweep',
       'Pop-up Event & Booth Manager',
-      'Review System',
+      'Password-Gated Refunds',
       'CSRF Protection',
       'Session Management',
     ],
@@ -234,10 +269,10 @@ const secondaryProjects: SecondaryProject[] = [
     icon: ShoppingBag,
     caseStudy: {
       problem: 'Small artisan businesses need an online store but can\'t afford complex e-commerce platforms. They also need to handle custom commissions, not just product sales.',
-      solution: 'Built a 33-page e-commerce platform with a unique two-step payment flow (order first, pay after shipping quote), a 5-step commission pipeline for custom work, and a merchant studio that gives the owner full control.',
+      solution: 'Built a 37-page e-commerce platform with a unique two-step payment flow (order first, pay after shipping quote), a 5-step commission pipeline for custom work, and a merchant studio that gives the owner full control.',
       result: 'The platform handles everything from product sales to custom artisan commissions, with BIR-compliant receipts and a complete order management system — all from a single ASP.NET Web Forms app.',
       metrics: [
-        { label: 'Pages', value: '33' },
+        { label: 'Pages', value: '37' },
         { label: 'Payment Steps', value: '2' },
         { label: 'Commission Steps', value: '5' },
       ],
@@ -275,7 +310,7 @@ const secondaryProjects: SecondaryProject[] = [
       metrics: [
         { label: 'Tabs', value: '5' },
         { label: 'Offline', value: '100%' },
-        { label: 'Test Suite', value: '88' },
+        { label: 'Layouts', value: '3' },
       ],
     },
   },
