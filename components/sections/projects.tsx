@@ -112,7 +112,13 @@ const secondaryProjects: SecondaryProject[] = [
     title: 'Kumpleto',
     description: 'Offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — NBI clearance, PSA certificates, passport, national ID, LTO licences and permits, DTI business names, PRC licences — plus life-event bundles like Job Hunt Pack, First Passport and New Driver. Ships with 23 verified documents, 9 bundles and 18 agencies bundled as an asset, English + Filipino content, full-text search across requirements, steps and fees, per-document deep links, and expiry reminders. No accounts, no analytics, no ads — nothing leaves the device.',
     image: '/projects/kumpleto.webp',
-    imageAlt: 'Kumpleto app icon and wordmark on the brand teal background',
+    imageAlt: 'Kumpleto onboarding, home and bundle screens on Android',
+    screenshotPaths: [
+      '/projects/kumpleto-home.webp',
+      '/projects/kumpleto-bundle.webp',
+      '/projects/kumpleto-document.webp',
+      '/projects/kumpleto-welcome.webp',
+    ],
     features: [
       'Per-Document Requirement Checklists',
       'Life-Event Bundles with Progress',
