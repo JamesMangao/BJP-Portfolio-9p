@@ -110,7 +110,7 @@ const secondaryProjects: SecondaryProject[] = [
   {
     id: 'kumpleto',
     title: 'Kumpleto',
-    description: 'Offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — NBI clearance, PSA certificates, passport, national ID, LTO licences and permits, DTI business names, PRC licences — plus life-event bundles like Job Hunt Pack, First Passport and New Driver. Ships with 23 verified documents, 9 bundles and 18 agencies bundled as an asset, English + Filipino content, full-text search across requirements, steps and fees, per-document deep links, and expiry reminders. No accounts, no analytics, no ads — nothing leaves the device.',
+    description: 'Offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — NBI clearance, PSA certificates, passport, national ID, LTO licences and permits, DTI business names, PRC licences — plus life-event bundles like Job Hunt Pack, First Passport and New Driver. Ships with 32 verified documents, 9 bundles and 18 agencies bundled as an asset, English + Filipino content, full-text search across requirements, steps and fees, per-document deep links, and expiry reminders. No accounts, no analytics, no ads — nothing leaves the device.',
     image: '/projects/kumpleto.webp',
     imageAlt: 'Kumpleto onboarding, home and bundle screens on Android',
     screenshotPaths: [
@@ -122,7 +122,7 @@ const secondaryProjects: SecondaryProject[] = [
     features: [
       'Per-Document Requirement Checklists',
       'Life-Event Bundles with Progress',
-      '23 Documents · 9 Bundles · 18 Agencies',
+      '32 Documents · 9 Bundles · 18 Agencies',
       'Works 100% Offline',
       'English + Filipino',
       'Search Across Requirements, Fees & Notes',
@@ -139,9 +139,9 @@ const secondaryProjects: SecondaryProject[] = [
     caseStudy: {
       problem: 'Preparing Philippine government documents means scattered PDFs, forum posts and word of mouth. Requirements, fees and processing times are hard to compare, easy to get wrong, and usually only available with a connection.',
       solution: 'Built a Flutter app around an offline-first dataset: every document, requirement and agency citation is validated against a schema in CI, compiled to a single asset, and refreshed silently from a public JSON feed — so content updates ship without a store release.',
-      result: 'Version 1.0.0 ships 23 verified documents, 9 life-event bundles and 18 agencies that work on first launch with no network, no account and no tracking, in both English and Filipino.',
+      result: 'Version 1.0.0 ships 32 verified documents, 9 life-event bundles and 18 agencies that work on first launch with no network, no account and no tracking, in both English and Filipino.',
       metrics: [
-        { label: 'Documents', value: '23' },
+        { label: 'Documents', value: '32' },
         { label: 'Bundles', value: '9' },
         { label: 'Offline', value: '100%' },
       ],

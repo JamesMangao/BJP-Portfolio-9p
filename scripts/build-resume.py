@@ -161,7 +161,7 @@ story.append(Paragraph(
 ))
 for b in [
     "Solo developer: shipped an offline-first Android app (Flutter, Riverpod, go_router, Drift/SQLite) "
-    "keeping 23 government documents, 9 life-event bundles and 18 agencies fully usable with zero network.",
+    "keeping 32 government documents, 9 life-event bundles and 18 agencies fully usable with zero network.",
     "Built per-document requirement checklists, bilingual English/Filipino content, full-text search across "
     "requirements and fees, deep links, and expiry reminders — with no accounts, analytics or ads.",
     "Validated every dataset entry against a schema in CI and shipped silent content refreshes from a public "
