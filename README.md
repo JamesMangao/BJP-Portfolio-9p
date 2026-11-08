@@ -25,7 +25,7 @@ Full-stack artisan e-commerce platform with 37 ASP.NET Web Forms pages over a 32
 - **Features:** Online Marketplace, Commission Pipeline, J&T Quote & Tracking, Proof-Gated Delivery Sweep, BIR-Style Receipts, Admin Console
 
 ### Kumpleto
-Unofficial offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — 35 documents, 9 life-event bundles and 19 agencies, with no accounts, analytics or ads.
+Unofficial offline-first Android app that keeps a community-maintained checklist of Philippine government document requirements — 37 documents, 9 life-event bundles and 19 agencies, with no accounts, analytics or ads.
 
 - **Stack:** Flutter, Dart, Riverpod, go_router, Drift (SQLite)
 - **Features:** Per-document checklists, life-event bundles, English + Filipino, full-text search, deep links, expiry reminders, silent data refresh
